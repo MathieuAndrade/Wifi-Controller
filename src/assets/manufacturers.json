@@ -1,0 +1,537 @@
+[
+  {
+    "key": 0,
+    "id": 1,
+    "manufacturer": "CMLElectronicsLimited"
+  },
+  {
+    "key": 1,
+    "id": 2,
+    "manufacturer": "TrainTechnology"
+  },
+  {
+    "key": 2,
+    "id": 11,
+    "manufacturer": "NCECorporation"
+  },
+  {
+    "key": 3,
+    "id": 12,
+    "manufacturer": "Wangrow"
+  },
+  {
+    "key": 4,
+    "id": 13,
+    "manufacturer": "PublicDomain&Do-It-YourselfDecoders"
+  },
+  {
+    "key": 5,
+    "id": 14,
+    "manufacturer": "PSI-Dynatrol"
+  },
+  {
+    "key": 6,
+    "id": 15,
+    "manufacturer": "RamfixxTechnologies(Wangrow)"
+  },
+  {
+    "key": 7,
+    "id": 17,
+    "manufacturer": "AdvancedICEngineering,Inc."
+  },
+  {
+    "key": 8,
+    "id": 18,
+    "manufacturer": "JMRI"
+  },
+  {
+    "key": 9,
+    "id": 19,
+    "manufacturer": "AMW"
+  },
+  {
+    "key": 10,
+    "id": 20,
+    "manufacturer": "T4T-TechnologyforTrainsGmbH"
+  },
+  {
+    "key": 11,
+    "id": 21,
+    "manufacturer": "KreischerDatentechnik"
+  },
+  {
+    "key": 12,
+    "id": 22,
+    "manufacturer": "KAMIndustries"
+  },
+  {
+    "key": 13,
+    "id": 23,
+    "manufacturer": "SHelperService"
+  },
+  {
+    "key": 14,
+    "id": 24,
+    "manufacturer": "MoBaTron.de"
+  },
+  {
+    "key": 15,
+    "id": 25,
+    "manufacturer": "TeamDigital,LLC"
+  },
+  {
+    "key": 16,
+    "id": 26,
+    "manufacturer": "MBTronik-PiNGITmBH"
+  },
+  {
+    "key": 17,
+    "id": 27,
+    "manufacturer": "MTHElectricTrains,Inc."
+  },
+  {
+    "key": 18,
+    "id": 28,
+    "manufacturer": "HeljanA/S"
+  },
+  {
+    "key": 19,
+    "id": 29,
+    "manufacturer": "MistralTrainModels"
+  },
+  {
+    "key": 20,
+    "id": 30,
+    "manufacturer": "Digsight"
+  },
+  {
+    "key": 21,
+    "id": 31,
+    "manufacturer": "Brelec"
+  },
+  {
+    "key": 22,
+    "id": 32,
+    "manufacturer": "RegalWayCo.Ltd"
+  },
+  {
+    "key": 23,
+    "id": 34,
+    "manufacturer": "Aristo-Craft"
+  },
+  {
+    "key": 24,
+    "id": 35,
+    "manufacturer": "Elektronik&ModellProduktion"
+  },
+  {
+    "key": 25,
+    "id": 36,
+    "manufacturer": "DCCConcepts"
+  },
+  {
+    "key": 26,
+    "id": 37,
+    "manufacturer": "NACServices,Inc."
+  },
+  {
+    "key": 27,
+    "id": 38,
+    "manufacturer": "BroadwayLimitedImports,LLC"
+  },
+  {
+    "key": 28,
+    "id": 39,
+    "manufacturer": "EducationalComputer,Inc(DCCdevices.com)"
+  },
+  {
+    "key": 29,
+    "id": 40,
+    "manufacturer": "KATOPrecisionModels"
+  },
+  {
+    "key": 30,
+    "id": 41,
+    "manufacturer": "PassmannModellbahnzubehoer"
+  },
+  {
+    "key": 31,
+    "id": 42,
+    "manufacturer": "Digirails"
+  },
+  {
+    "key": 32,
+    "id": 43,
+    "manufacturer": "Ngineering"
+  },
+  {
+    "key": 33,
+    "id": 44,
+    "manufacturer": "SPROG-DCC"
+  },
+  {
+    "key": 34,
+    "id": 45,
+    "manufacturer": "ANEModelCo.,LTD."
+  },
+  {
+    "key": 35,
+    "id": 46,
+    "manufacturer": "GFBDesigns"
+  },
+  {
+    "key": 36,
+    "id": 47,
+    "manufacturer": "Capecom"
+  },
+  {
+    "key": 37,
+    "id": 48,
+    "manufacturer": "HornbyHobbiesLtd."
+  },
+  {
+    "key": 38,
+    "id": 49,
+    "manufacturer": "JokaElectronic"
+  },
+  {
+    "key": 39,
+    "id": 50,
+    "manufacturer": "N&QElectronics"
+  },
+  {
+    "key": 40,
+    "id": 51,
+    "manufacturer": "DCCSupplies,Ltd"
+  },
+  {
+    "key": 41,
+    "id": 52,
+    "manufacturer": "Krois-Modell"
+  },
+  {
+    "key": 42,
+    "id": 53,
+    "manufacturer": "RautenhausDigital"
+  },
+  {
+    "key": 43,
+    "id": 54,
+    "manufacturer": "TCHTechnology"
+  },
+  {
+    "key": 44,
+    "id": 55,
+    "manufacturer": "QElectronicsGmbH"
+  },
+  {
+    "key": 45,
+    "id": 56,
+    "manufacturer": "LDH"
+  },
+  {
+    "key": 46,
+    "id": 57,
+    "manufacturer": "RampinoElektronik"
+  },
+  {
+    "key": 47,
+    "id": 58,
+    "manufacturer": "KRESGmbH"
+  },
+  {
+    "key": 48,
+    "id": 59,
+    "manufacturer": "TamValleyDepot"
+  },
+  {
+    "key": 49,
+    "id": 60,
+    "manufacturer": "Bluecher-Elektronik"
+  },
+  {
+    "key": 50,
+    "id": 61,
+    "manufacturer": "TrainModules"
+  },
+  {
+    "key": 51,
+    "id": 62,
+    "manufacturer": "TamsElektronikGmbH"
+  },
+  {
+    "key": 52,
+    "id": 63,
+    "manufacturer": "Noarail"
+  },
+  {
+    "key": 53,
+    "id": 64,
+    "manufacturer": "DigitalBahn"
+  },
+  {
+    "key": 54,
+    "id": 66,
+    "manufacturer": "RailnetSolutions,LLC"
+  },
+  {
+    "key": 55,
+    "id": 68,
+    "manufacturer": "MAWEElektronik"
+  },
+  {
+    "key": 56,
+    "id": 69,
+    "manufacturer": "E-Modell"
+  },
+  {
+    "key": 57,
+    "id": 71,
+    "manufacturer": "NewYorkByanoLimited"
+  },
+  {
+    "key": 58,
+    "id": 72,
+    "manufacturer": "MTBModel"
+  },
+  {
+    "key": 59,
+    "id": 73,
+    "manufacturer": "TheElectricRailroadCompany"
+  },
+  {
+    "key": 60,
+    "id": 74,
+    "manufacturer": "PpPDigital"
+  },
+  {
+    "key": 61,
+    "id": 75,
+    "manufacturer": "DigiToolsElectronicsServicingandContractorLtd."
+  },
+  {
+    "key": 62,
+    "id": 76,
+    "manufacturer": "Auvidel"
+  },
+  {
+    "key": 63,
+    "id": 77,
+    "manufacturer": "LSModelsSprl"
+  },
+  {
+    "key": 64,
+    "id": 85,
+    "manufacturer": "UhlenbrockElektronikGmbH"
+  },
+  {
+    "key": 65,
+    "id": 87,
+    "manufacturer": "RR-CirKits"
+  },
+  {
+    "key": 66,
+    "id": 95,
+    "manufacturer": "SandaKanIndustrial(1981)Ltd."
+  },
+  {
+    "key": 67,
+    "id": 97,
+    "manufacturer": "Doehler&Haas"
+  },
+  {
+    "key": 68,
+    "id": 99,
+    "manufacturer": "LenzElektronikGmbH"
+  },
+  {
+    "key": 69,
+    "id": 101,
+    "manufacturer": "BachmannTrains"
+  },
+  {
+    "key": 70,
+    "id": 103,
+    "manufacturer": "NagasueSystemDesignOffice"
+  },
+  {
+    "key": 71,
+    "id": 105,
+    "manufacturer": "ComputerDialysisFrance"
+  },
+  {
+    "key": 72,
+    "id": 109,
+    "manufacturer": "ViessmannModellspielwarenGmbH"
+  },
+  {
+    "key": 73,
+    "id": 111,
+    "manufacturer": "Haber&KoenigElectronicsGmbH"
+  },
+  {
+    "key": 74,
+    "id": 113,
+    "manufacturer": "QSIndustries"
+  },
+  {
+    "key": 75,
+    "id": 115,
+    "manufacturer": "DietzModellbahntechnik"
+  },
+  {
+    "key": 76,
+    "id": 117,
+    "manufacturer": "cTElektronik"
+  },
+  {
+    "key": 77,
+    "id": 119,
+    "manufacturer": "W.S.AtarasEngineering"
+  },
+  {
+    "key": 78,
+    "id": 123,
+    "manufacturer": "MassothElektronik,GmbH"
+  },
+  {
+    "key": 79,
+    "id": 125,
+    "manufacturer": "ProfiLokModellbahntechnikGmbH"
+  },
+  {
+    "key": 80,
+    "id": 127,
+    "manufacturer": "AtlasModelRailroadCo.,Inc."
+  },
+  {
+    "key": 81,
+    "id": 129,
+    "manufacturer": "Digitrax"
+  },
+  {
+    "key": 82,
+    "id": 131,
+    "manufacturer": "TrixModelleisenbahn"
+  },
+  {
+    "key": 83,
+    "id": 132,
+    "manufacturer": "ZTCControlsLtd."
+  },
+  {
+    "key": 84,
+    "id": 133,
+    "manufacturer": "IntelligentCommandControl"
+  },
+  {
+    "key": 85,
+    "id": 134,
+    "manufacturer": "LaisDCC"
+  },
+  {
+    "key": 86,
+    "id": 135,
+    "manufacturer": "CVPProducts"
+  },
+  {
+    "key": 87,
+    "id": 139,
+    "manufacturer": "RealRailEffects"
+  },
+  {
+    "key": 88,
+    "id": 141,
+    "manufacturer": "Throttle-Up(Soundtraxx)"
+  },
+  {
+    "key": 89,
+    "id": 143,
+    "manufacturer": "ModelRectifierCorp."
+  },
+  {
+    "key": 90,
+    "id": 145,
+    "manufacturer": "ZimoElektronik"
+  },
+  {
+    "key": 91,
+    "id": 147,
+    "manufacturer": "UmelecIng.Buero"
+  },
+  {
+    "key": 92,
+    "id": 149,
+    "manufacturer": "RockJunctionControls"
+  },
+  {
+    "key": 93,
+    "id": 151,
+    "manufacturer": "ElectronicSolutionsUlmGmbH&CoKG"
+  },
+  {
+    "key": 94,
+    "id": 153,
+    "manufacturer": "TrainControlSystems"
+  },
+  {
+    "key": 95,
+    "id": 155,
+    "manufacturer": "Gebr.FleischmannGmbH&Co."
+  },
+  {
+    "key": 96,
+    "id": 157,
+    "manufacturer": "KuehnIng."
+  },
+  {
+    "key": 97,
+    "id": 159,
+    "manufacturer": "LGB(ErnstPaulLehmannPatentwerk)"
+  },
+  {
+    "key": 98,
+    "id": 161,
+    "manufacturer": "ModelleisenbahnGmbH(formerlyRoco)"
+  },
+  {
+    "key": 99,
+    "id": 163,
+    "manufacturer": "WPRailshops"
+  },
+  {
+    "key": 100,
+    "id": 165,
+    "manufacturer": "ModelElectronicRailwayGroup"
+  },
+  {
+    "key": 101,
+    "id": 170,
+    "manufacturer": "AuroTrains"
+  },
+  {
+    "key": 102,
+    "id": 173,
+    "manufacturer": "Arnold-Rivarossi"
+  },
+  {
+    "key": 103,
+    "id": 186,
+    "manufacturer": "br/AWAModellspielwarenGmbH&Co."
+  },
+  {
+    "key": 104,
+    "id": 204,
+    "manufacturer": "Con-ComGmBH"
+  },
+  {
+    "key": 105,
+    "id": 225,
+    "manufacturer": "ElpromaElectronicsPoland"
+  },
+  {
+    "key": 106,
+    "id": 238,
+    "manufacturer": "NMRAreserved"
+  }
+]
