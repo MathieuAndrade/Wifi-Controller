@@ -476,7 +476,7 @@
             <td>
               <CvButton
                 onReadClick="{() => onRead(cv.id)}"
-                onWriteClick="{() => onWrite(cv.id)}" />
+                onWriteClick="{() => onWrite([cv.id])}" />
             </td>
           </tr>
         {/each}
