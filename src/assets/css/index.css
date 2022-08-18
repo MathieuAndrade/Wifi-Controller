@@ -50,10 +50,6 @@ main {
   overflow-y: scroll !important;
 }
 
-.drawer-toggle ~ .drawer-content {
-  overflow-y: hidden !important;
-}
-
 .no-padding {
   padding: 0 !important;
 }

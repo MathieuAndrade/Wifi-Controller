@@ -1,6 +1,6 @@
 <script lang="js">
   import _ from '../../utils/i18n';
-  import { url } from '../../utils/store';
+  import { url, modalToOpen } from '../../utils/store';
   import { getStats } from '../../utils/api';
   import { humanFileSize, calculateSize } from '../../utils/utils';
 
@@ -17,8 +17,8 @@
   let ip = '';
   let files = [];
 
-  window.addEventListener('hashchange', (event) => {
-    if (event.newURL.includes('#esp-stats')) {
+  modalToOpen.subscribe(async (value) => {
+    if (value === 'espStats') {
       getStats($url).then((response) => {
         files = response.files;
         memory = response.totalSize;
@@ -32,14 +32,14 @@
   });
 </script>
 
-<div id="esp-stats" class="modal">
+<div class="modal {$modalToOpen === 'espStats' ? 'modal-open' : ''}">
   <div class="modal-box">
     <div class="modal-content">
       <div class="flex justify-between">
         <h2 class="font-semibold text-xl mb-5">{$_('espStats')}</h2>
         <button
           class="btn btn-sm btn-circle btn-ghost drawer-button p-0"
-          on:click|preventDefault="{() => window.history.go(-1)}"
+          on:click|preventDefault="{() => modalToOpen.set('')}"
         >
           <Icons cssClass="inline-block w-4 h-4 stroke-current" icon="close" />
         </button>

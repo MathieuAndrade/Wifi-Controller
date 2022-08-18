@@ -1,6 +1,8 @@
 <script lang="js">
+  import { link } from 'svelte-spa-router';
+  import Icon from '@iconify/svelte';
+
   import _ from '../utils/i18n';
-  import { Link } from 'svelte-routing';
 
   const version = __APP_VERSION__;
 </script>
@@ -20,8 +22,7 @@
       </p>
 
       <div
-        class="flex flex-row flex-wrap justify-center mt-5 space-y-2 xl:space-y-0 xl:space-x-2"
-      >
+        class="flex flex-row flex-wrap justify-center mt-5 space-y-2 xl:space-y-0 xl:space-x-2">
         <div class="card shadow-lg border border-base-300">
           <div class="card-body">
             <h2 class="card-title">{$_('dashboardTitle')}</h2>
@@ -30,21 +31,10 @@
             </p>
             <p class="mt-5 font-semibold">{$_('dashboardNote')}</p>
             <div class="justify-end card-actions">
-              <Link class="btn btn-outline" to="dashboard">
+              <a class="btn btn-outline" href="/dashboard/locomotive" use:link>
                 {$_('dashboardTitle')}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  class="inline-block w-6 h-6 ml-2 stroke-current"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"></path>
-                </svg>
-              </Link>
+                <Icon icon="ep:arrow-right-bold" class="w-6 h-6 ml-2"/>
+              </a>
             </div>
           </div>
         </div>
@@ -57,21 +47,10 @@
             </p>
             <p class="mt-5 font-semibold invisible">fake</p>
             <div class="justify-end card-actions">
-              <Link class="btn btn-outline" to="mobile">
+              <a class="btn btn-outline" href="/mobile" use:link>
                 {$_('mobileTitle')}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  class="inline-block w-6 h-6 ml-2 stroke-current"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"></path>
-                </svg>
-              </Link>
+                <Icon icon="ep:arrow-right-bold" class="w-6 h-6 ml-2"/>
+              </a>
             </div>
           </div>
         </div>

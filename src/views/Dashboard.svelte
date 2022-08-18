@@ -1,23 +1,31 @@
 <script lang="js">
-  import Drawer from '../lib/Drawer.svelte';
-  import Navbar from '../lib/Navbar.svelte';
+  import Router from 'svelte-spa-router';
+
+  import Drawer from '../lib/Dashboard/Drawer.svelte';
+  import Navbar from '../lib/Dashboard/Navbar.svelte';
   import Connection from '../lib/Connection.svelte';
   import EspStats from '../lib/EspStats/Modal.svelte';
-
-  import LocoCommand from '../lib/Dashboard/LocoCommand.svelte';
-  import LocoParams from '../lib/Dashboard/LocoParams.svelte';
-  import LocoCv from '../lib/Dashboard/LocoCV.svelte';
+  import DeleteLoco from '../lib/Dashboard/loco/DeleteLoco.svelte';
   import NewLoco from '../lib/Dashboard/NewLoco.svelte';
-  import DeleteLoco from '../lib/Dashboard/DeleteLoco.svelte';
+
+  import Loco from '../lib/Dashboard/loco/Loco.svelte';
+  import Feedback from '../lib/Dashboard/feedback/Feedback.svelte';
+  import Accessoires from '../lib/Dashboard/accessories/Accessories.svelte';
+  import Toast from '../lib/Toast.svelte';
+
+  const routes = {
+    '/dashboard/locomotive': Loco,
+    '/dashboard/locomotive/*': Loco,
+    '/dashboard/feedback': Feedback,
+    '/dashboard/accessories': Accessoires,
+  };
 </script>
 
-<div class="relative flex h-screen">
+<div>
   <Drawer>
     <Navbar />
-    <main class="h-full overflow-auto p-5 space-y-5 pb-20">
-      <LocoCommand />
-      <LocoParams />
-      <LocoCv />
+    <main class="p-6">
+      <Router routes="{routes}" />
     </main>
   </Drawer>
 
@@ -25,4 +33,5 @@
   <NewLoco />
   <DeleteLoco />
   <EspStats />
+  <Toast />
 </div>
