@@ -5,6 +5,7 @@
   import { getDataUrl } from '../utils/utils';
 
   export let imgUrl = null;
+  export let alt = '';
   export let cssClass = 'border p-2 border-base-300 rounded-xl shadow-lg';
   export let width = null;
 
@@ -26,7 +27,7 @@
 </script>
 
 <img
-  alt="{$selectedLoco.shortName}"
+  alt="{alt}"
   src="{img}"
   class="{cssClass}"
   width="{width}"

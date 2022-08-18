@@ -103,7 +103,7 @@
         {#each $locos as loco, index (index)}
           <li>
             <label class="cursor-pointer label flex w-full">
-              <Image imgUrl="{loco.imageUrl ? loco.imageUrl : '/images/train.png'}" width="{70}" />
+              <Image imgUrl="{loco.imageUrl ? loco.imageUrl : '/images/train.png'}" alt="{loco.shortName}" width="{70}" />
               <span class="label-text basis-20 text-center text-ellipsis overflow-hidden shrink whitespace-nowrap">{loco.shortName}</span>
               <input
                 type="radio"
