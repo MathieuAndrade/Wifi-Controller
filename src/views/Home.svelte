@@ -39,6 +39,7 @@
           </div>
         </div>
 
+        <!--
         <div class="card shadow-lg border border-base-300">
           <div class="card-body">
             <h2 class="card-title">{$_('mobileTitle')}</h2>
@@ -54,6 +55,7 @@
             </div>
           </div>
         </div>
+      -->
       </div>
 
       <p class="mt-5">
