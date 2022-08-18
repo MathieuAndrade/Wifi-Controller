@@ -15,6 +15,7 @@ const createServer = () => {
   server.get('/', serveMainPage);
   server.get('/dashboard', serveMainPage);
   server.get('/mobile', serveMainPage);
+  server.get('/logs', serveMainPage);
 
   server.listen(62521);
 };
