@@ -1,4 +1,5 @@
 <script lang="js">
+  import Icon from '@iconify/svelte';
   import {
     ws,
     selectedLoco,
@@ -10,7 +11,6 @@
   import _ from '../../../utils/i18n';
   import messages from '../../../utils/messages';
 
-  import Icons from '../../Icons/Icons.svelte';
   import Gauge from '../../Gauge.svelte';
   import LocoFunctions from '../../LocoFunctions.svelte';
 
@@ -91,7 +91,7 @@
           class="btn btn-outline btn-sm rounded-btn
           {dir === 1 ? '' : 'btn-accent'}"
           on:click|preventDefault="{onChangeDirection}">
-          <Icons cssClass="inline-block w-5 lg:mr-2" icon="arrow-left" />
+          <Icon icon="eva:arrow-circle-left-outline" class="inline-block w-5 h-5 lg:mr-2" />
           <span class="hidden lg:block">{$_('forward')}</span>
         </button>
 
@@ -100,14 +100,14 @@
           {dir === 0 ? '' : 'btn-accent'}"
           on:click|preventDefault="{onChangeDirection}">
           <span class="hidden lg:block">{$_('backward')}</span>
-          <Icons cssClass="inline-block w-5 lg:ml-2" icon="arrow-right" />
+          <Icon icon="eva:arrow-circle-right-outline" class="inline-block w-5 h-5 lg:ml-2" />
         </button>
       </div>
 
       <button
         class="btn btn-outline btn-sm btn-warning rounded-btn"
         on:click|preventDefault="{onStop}">
-        <Icons cssClass="inline-block w-5 mr-2" icon="stop" />
+        <Icon icon="mdi:stop" class="inline-block w-5 h-5 lg:mr-2" />
         {$_('stop')}
       </button>
     </div>

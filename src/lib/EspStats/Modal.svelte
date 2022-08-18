@@ -1,10 +1,10 @@
 <script lang="js">
+  import Icon from '@iconify/svelte';
   import _ from '../../utils/i18n';
   import { url, modalToOpen } from '../../utils/store';
   import { getStats } from '../../utils/api';
   import { humanFileSize, calculateSize } from '../../utils/utils';
 
-  import Icons from '../Icons/Icons.svelte';
   import Folder from './Folder.svelte';
 
   const circumference = 30 * 2 * Math.PI;
@@ -41,7 +41,7 @@
           class="btn btn-sm btn-circle btn-ghost drawer-button p-0"
           on:click|preventDefault="{() => modalToOpen.set('')}"
         >
-          <Icons cssClass="inline-block w-4 h-4 stroke-current" icon="close" />
+          <Icon icon="mdi:close" class="w-5 h-5" />
         </button>
       </div>
 

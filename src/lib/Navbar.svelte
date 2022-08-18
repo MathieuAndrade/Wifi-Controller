@@ -1,10 +1,9 @@
 <script lang="js">
+  import Icon from '@iconify/svelte';
   import { ws, event, hasDataToSave, powerState, log } from '../utils/store';
 
   import messages from '../utils/messages';
   import _ from '../utils/i18n';
-
-  import Icons from '../lib/Icons/Icons.svelte';
 
   export let mode = 'dashboard';
 
@@ -52,7 +51,7 @@
         </div>
       {/if}
       <label for="drawer" class="btn btn-circle btn-ghost drawer-button">
-        <Icons cssClass="inline-block w-6 h-6 stroke-current" icon="menu" />
+        <Icon icon="ic:round-menu" class="w-6 h-6" />
       </label>
     </div>
     {#if mode === 'dmc'}
@@ -66,13 +65,13 @@
     <button
       class="btn btn-outline btn-sm btn-warning rounded-btn"
       on:click|preventDefault="{onEmergency}">
-      <Icons cssClass="inline-block w-5 lg:mr-2" icon="warning" />
+      <Icon icon="ic:round-warning-amber" class="w-5 h-5 lg:mr-2" />
       <span class="hidden lg:block">{$_('emergencyStop')}</span>
     </button>
     <button
       class="btn btn-outline btn-sm rounded-btn"
       on:click|preventDefault="{onPower}">
-      <Icons cssClass="inline-block w-5 lg:mr-2" icon="power" />
+      <Icon icon="ic:round-power-settings-new" class="w-5 h-5 lg:mr-2" />
       <span class="hidden lg:block">{$_('power')}</span>
     </button>
 

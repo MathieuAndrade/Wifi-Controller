@@ -1,4 +1,5 @@
 <script lang="js">
+  import Icon from '@iconify/svelte';
   import {
     url,
     locos,
@@ -11,8 +12,6 @@
   import { getDataUrl, listOfLocoKeys } from '../utils/utils';
   import { getImageFromUrl, uploadFile, deleteFile } from '../utils/api';
   import log from '../utils/log';
-
-  import Icons from './Icons/Icons.svelte';
 
   export let imgUrl = null;
   export let hasSaveBtn = false;
@@ -126,7 +125,7 @@
         class="place-self-center absolute h-full w-full bg-base-100 opacity-0 hover:opacity-70"
         on:click|preventDefault="{() => (imgUrl = null)}"
       >
-        <Icons cssClass="inline-block w-7 h-7" icon="trash" />
+        <Icon icon="mdi:trash-outline" class="inline-block w-7 h-7"/>
       </button>
     </div>
     {#if imgName}
@@ -152,7 +151,7 @@
         disabled="{$selectedLoco.imageUrl === imgUrl}"
         on:click|preventDefault="{onSave}"
       >
-        <Icons cssClass="inline-block w-5 mr-2" icon="save" />
+        <Icon icon="ic:round-save-as" class="w-5 h-5 mr-2"/>
         {$_('saveImage')}
       </button>
     {/if}

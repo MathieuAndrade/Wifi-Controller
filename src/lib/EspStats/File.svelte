@@ -2,7 +2,7 @@
   import { url } from '../../utils/store';
   import { humanFileSize } from '../../utils/utils';
 
-  import Icons from '../Icons/Icons.svelte';
+  import FileIcon from './FileIcon.svelte';
 
   export let folder;
   export let name;
@@ -12,7 +12,7 @@
 </script>
 
 <a href="{`http://${$url}${folder}${name}`}" target="_blank">
-  <Icons cssClass="inline-block w-5 mr-2 text-accent" icon="{type}" />
+  <FileIcon type="{type}" />
   {name}
 </a>
 <span class="size"> - {humanFileSize(size)}</span>
