@@ -4,15 +4,15 @@
     selectedLoco,
     indexOfSelectedLoco,
     powerState,
-  } from '../../utils/store';
+    addToast,
+  } from '../../../utils/store';
 
-  import _ from '../../utils/i18n';
-  import messages from '../../utils/messages';
+  import _ from '../../../utils/i18n';
+  import messages from '../../../utils/messages';
 
-  import Icons from '../Icons/Icons.svelte';
-  import Gauge from '../Gauge.svelte';
-  import Image from '../Image.svelte';
-  import LocoFunctions from '../LocoFunctions.svelte';
+  import Icons from '../../Icons/Icons.svelte';
+  import Gauge from '../../Gauge.svelte';
+  import LocoFunctions from '../../LocoFunctions.svelte';
 
   let speed = 0;
   let dir = 1;
@@ -27,6 +27,7 @@
       $ws.send(messages.speed($indexOfSelectedLoco + 1, address, speed, dir));
     } else {
       speed = 0;
+      addToast('warning', "L'alimentation est coupé");
     }
   };
 
@@ -47,49 +48,8 @@
   };
 </script>
 
-<div
-  class="collapse border rounded-box border-base-300 collapse-arrow {!$selectedLoco.address &&
-    'collapse-close'}">
-  <input type="checkbox" checked />
-
-  <div class="collapse-title text-xl font-medium">
-    {#if $selectedLoco && $selectedLoco.longName}
-      {$_('loco')} : {$selectedLoco.longName}
-    {:else if $selectedLoco && $selectedLoco.shortName}
-      {$_('loco')} : {$selectedLoco.shortName}
-    {:else}
-      {$_('locoNotSelected')}
-    {/if}
-  </div>
-  <div class="collapse-content flex flex-row space-x-7 justify-between">
-    <div class="flex-auto flex flex-col space-y-5 items-center max-w-xs">
-      <Image
-        imgUrl="{$selectedLoco.imageUrl}"
-        cssClass="border p-2 border-base-300 rounded-3xl shadow-lg max-h-44" />
-      <div class="flex flex-col space-y-4">
-        <div>
-          <label class="basis-1/4 font-semibold" for="short-address">
-            {$_('address')} :
-          </label>
-          <input
-            class="input input-ghost input-bordered input-sm"
-            type="number"
-            id="address"
-            name="address"
-            bind:value="{address}"
-            on:change="{() => (speed = 0)}" />
-        </div>
-
-        <p>
-          <span class="font-semibold"> {$_('shortName')}: </span>
-          {$selectedLoco.shortName}
-        </p>
-        <p>
-          <span class="font-semibold"> {$_('longName')}: </span>
-          {$selectedLoco.longName}
-        </p>
-      </div>
-    </div>
+<div>
+  <div class="flex flex-row space-x-7 justify-evenly">
     <div class="grow-0 hidden xl:block">
       <Gauge bind:speed onSpeedChange="{onSpeedChange}" />
     </div>
@@ -103,7 +63,7 @@
         bind:value="{speed}"
         on:change="{onSpeedChange}" />
     </div>
-    <div class="flex-auto grow-0 w-56 flex flex-col space-y-3">
+    <div class="flex-auto grow-0 flex flex-col space-y-3">
       <div
         class="flex-auto flex flex-col place-items-center place-content-center space-y-3">
         {#if !$powerState}
@@ -151,11 +111,10 @@
         {$_('stop')}
       </button>
     </div>
-    <div
-      class="flex-auto rounded-box border border-base-300 p-5 max-w-sm min-w-[16rem]">
-      <div class="max-h-72 overflow-auto">
-        <LocoFunctions bind:address />
-      </div>
-    </div>
+  </div>
+
+  <div
+    class="rounded-box border border-base-300 p-5 mt-5 grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
+      <LocoFunctions bind:address />
   </div>
 </div>

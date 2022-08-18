@@ -5,10 +5,10 @@
     selectedLoco,
     indexOfSelectedLoco,
     indexOfLocoToDelete,
-  } from '../../utils/store';
+  } from '../../../utils/store';
 
-  import { listOfLocoKeys } from '../../utils/utils';
-  import { uploadFile, deleteFile } from '../../utils/api';
+  import { listOfLocoKeys } from '../../../utils/utils';
+  import { uploadFile, deleteFile } from '../../../utils/api';
 
   indexOfLocoToDelete.subscribe((value) => {
     if (value !== -1) {

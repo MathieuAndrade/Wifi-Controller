@@ -1,5 +1,6 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 const daisyui = require('daisyui');
+const tailwindTypography = require('@tailwindcss/typography');
 
 module.exports = {
   mode: 'jit',
@@ -35,7 +36,7 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [daisyui],
+  plugins: [tailwindTypography, daisyui],
   daisyui: {
     themes: ['light', 'dark'],
   },

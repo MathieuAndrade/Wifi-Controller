@@ -4,6 +4,7 @@
     locos,
     selectedLoco,
     indexOfSelectedLoco,
+    modalToOpen,
   } from '../../utils/store';
 
   import _ from '../../utils/i18n';
@@ -63,7 +64,7 @@
       newLoco = {};
 
       // Close modal
-      window.history.go(-1);
+      modalToOpen.set('');
     } catch (error) {
       log.error(error);
     }
@@ -76,11 +77,11 @@
     newLoco = {};
     imgUrl = null;
     loading = false;
-    window.history.go(-1);
+    modalToOpen.set('');
   };
 </script>
 
-<div id="new-loco" class="modal">
+<div class="modal {$modalToOpen === 'newLoco' ? 'modal-open' : ''}">
   {#if loading}
     <div class="modal-box text-center">
       <span id="connection-loading" class="btn btn-ghost btn-lg loading"></span>

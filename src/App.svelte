@@ -1,32 +1,25 @@
 <script lang="js">
-  import { Router, Route } from 'svelte-routing';
+  import Router from 'svelte-spa-router'
   import { isLoading } from 'svelte-i18n';
-  import { NotificationDisplay } from '@beyonk/svelte-notifications';
 
   import Home from './views/Home.svelte';
   import Dashboard from './views/Dashboard.svelte';
   import Mobile from './views/Mobile.svelte';
   import Logs from './views/Logs.svelte';
 
-  export let url = '';
 
-  //TODO: Notification systeme
+  const routes = {
+    '/': Home,
+    '/mobile': Mobile,
+    '/logs': Logs,
+    '/dashboard': Dashboard,
+    '/dashboard/*': Dashboard,
+  }
 </script>
 
 {#if !$isLoading}
-  <div class="h-screen">
-    <Router url="{url}">
-      <Route path="/"><Home /></Route>
-      <Route path="/dashboard"><Dashboard /></Route>
-      <Route path="/mobile"><Mobile /></Route>
-      <Route path="/logs"><Logs /></Route>
-    </Router>
-  </div>
+  <Router {routes}/>
 
-  <NotificationDisplay />
 {:else}
-  <div class="h-screen">
-    <span class="btn btn-ghost font-semibold text-lg normal-case loading">
-    </span>
-  </div>
+  <span class="btn btn-ghost font-semibold text-lg normal-case loading" />
 {/if}

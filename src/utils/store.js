@@ -18,12 +18,27 @@ const dccLogs = writable([]);
 const powerState = writable(false);
 const log = writable('');
 
+const modalToOpen = writable('');
+
+const toasts = writable([]);
+
 /** Static vars */
 
 // Random number for read/write cv
 const cvId = Math.floor(Math.random() * 100) + 200;
 // Event emitter used by websocket helper and lot of components
 const event = new Event();
+
+const addToast = (type, message) => {
+  toasts.update((value) => [
+    ...value,
+    {
+      message,
+      type,
+      time: Date.now(),
+    },
+  ]);
+};
 
 export {
   url,
@@ -38,4 +53,7 @@ export {
   log,
   indexOfLocoToDelete,
   dccLogs,
+  modalToOpen,
+  toasts,
+  addToast,
 };

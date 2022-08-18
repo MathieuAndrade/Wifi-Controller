@@ -1,7 +1,6 @@
 <script lang="js">
-  import _ from '../../utils/i18n';
-
-  import Icons from '../Icons/Icons.svelte';
+  import Icon from '@iconify/svelte';
+  import _ from '../../../utils/i18n';
 
   export let cssClass = '';
   export let hideText = true;
@@ -14,20 +13,14 @@
     class="btn btn-outline btn-xs btn-success mr-2"
     on:click|preventDefault="{onReadClick}"
   >
-    <Icons
-      cssClass="inline-block w-5 {hideText ? 'mr-0 lg:mr-2' : 'mr-2'}"
-      icon="arrow-down"
-    />
+    <Icon icon="eva:arrow-circle-down-outline" class="inline-block w-5 h-5 {hideText ? 'mr-0 lg:mr-2' : 'mr-2'}" />
     <span class="{hideText ? 'hidden lg:block' : ''}">{$_('read')}</span>
   </button>
   <button
     class="btn btn-outline btn-xs btn-warning"
     on:click|preventDefault="{onWriteClick}"
   >
-    <Icons
-      cssClass="inline-block w-5 {hideText ? 'mr-0 lg:mr-2' : 'mr-2'}"
-      icon="arrow-up"
-    />
+    <Icon icon="eva:arrow-circle-up-outline" class="inline-block w-5 h-6 {hideText ? 'mr-0 lg:mr-2' : 'mr-2'}" />
     <span class="{hideText ? 'hidden lg:block' : ''}">{$_('write')}</span>
   </button>
 </div>
