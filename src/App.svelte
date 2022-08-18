@@ -1,5 +1,5 @@
 <script lang="js">
-  import Router from 'svelte-spa-router'
+  import Router from 'svelte-spa-router';
   import { isLoading } from 'svelte-i18n';
 
   import Home from './views/Home.svelte';
@@ -11,16 +11,19 @@
   import _ from './utils/i18n';
 
   const target = import.meta.env.VITE_TARGET;
+  const isDev = import.meta.env.DEV;
 
-  // Prompt to save data before closing
-  window.onbeforeunload = () => {
-    console.log(target);
-    if ($hasDataToSave) {
-      addToast('warning', $_('dataWaitingToBeSaved'));
-      return target === 'soft' ? undefined : 'Do you really want to close?';
-    }
-    return undefined;
-  };
+  if (!isDev) {
+    // Prompt to save data before closing
+    window.onbeforeunload = () => {
+      console.log(target);
+      if ($hasDataToSave) {
+        addToast('warning', $_('dataWaitingToBeSaved'));
+        return target === 'soft' ? undefined : 'Do you really want to close?';
+      }
+      return undefined;
+    };
+  }
 
   const routes = {
     '/': Home,
@@ -28,12 +31,12 @@
     '/logs': Logs,
     '/dashboard': Dashboard,
     '/dashboard/*': Dashboard,
-  }
+  };
+
 </script>
 
 {#if !$isLoading}
-  <Router {routes}/>
-
+  <Router routes="{routes}" />
 {:else}
-  <span class="btn btn-ghost font-semibold text-lg normal-case loading" />
+  <span class="btn btn-ghost font-semibold text-lg normal-case loading"></span>
 {/if}
