@@ -139,7 +139,7 @@
   "readGroupOfCv": "Grouped reading of CVs",
   "readGroupOfCvNote": "Recommendation: read a maximum of 10 CVs for each request.",
   "root": "Root",
-  "saveConfig": "Save configuration",
+  "saveConfig": "Save configuration to wemos",
   "saveImage": "Save image",
   "shortAddress": "Short address",
   "shortName": "Short Name",

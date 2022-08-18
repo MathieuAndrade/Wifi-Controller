@@ -139,7 +139,7 @@
   "readGroupOfCv": "Lecture groupée des CV",
   "readGroupOfCvNote": "Recommandation : lire un maximum de 10 CV à chaque requête.",
   "root": "Racine",
-  "saveConfig": "Enregistrer la configuration",
+  "saveConfig": "Enregistrer la configuration sur le wemos",
   "saveImage": "Sauvegarder l'image",
   "shortAddress": "Adresse courte",
   "shortName": "Nom court",
