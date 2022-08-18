@@ -223,14 +223,14 @@
       </div>
 
       <button
-        class="btn btn-outline btn-xs btn-error mr-2"
+        class="btn btn-outline btn-xs btn-error mr-0 lg:mr-2"
         on:click|preventDefault="{onStopReadMulitple}">
         <Icon icon="ic:outline-stop-circle" class="w-5 h-5 mr-2" />
         {$_('stop')}
       </button>
 
       <button
-        class="btn btn-outline btn-xs btn-info mr-2"
+        class="btn btn-outline btn-xs btn-info mr-0 lg:mr-2"
         on:click|preventDefault="{onReadMulitple}">
         <Icon icon="ic:outline-play-circle" class="w-5 h-5 mr-2" />
         {$_('starting')}
