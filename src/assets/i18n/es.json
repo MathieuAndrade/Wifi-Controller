@@ -81,6 +81,7 @@
   "cvList": "Lista de CV",
   "cvVolume": "Volumen CV",
   "cvTable": "CV tabla",
+  "dataWaitingToBeSaved": "Datos a la espera de ser guardados",
   "dashboardDescription": "Panel de configuración del tren (Agregar/configurar locomotoras, leer escribir CV, etc.)",
   "dashboardNote": "No apto para pantallas pequeñas",
   "dashboardTitle": "Panel WiFi DCC",

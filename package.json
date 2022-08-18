@@ -12,7 +12,7 @@
     "web:serve": "serve ./dist/esp",
     "soft:start": "electron .",
     "build:esp": "cross-env TARGET=esp vite build",
-    "build:soft": "cross-env TARGET=soft vite build && electron-builder"
+    "build:soft": "cross-env TARGET=soft vite build --mode soft && electron-builder"
   },
   "build": {
     "productName": "Wifi-Controller",
