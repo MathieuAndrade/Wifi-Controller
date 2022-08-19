@@ -1,4 +1,6 @@
 /* eslint-env browser */
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver';
 
 const listOfLocoKeys = [
   'address',
@@ -167,6 +169,43 @@ const download = (name, data) => {
   }
 };
 
+/**
+ * Zip Name: Locos
+ * Zip Architecture
+ * root /
+ * - {locoName} /
+ * -- {locoName}.img (png, jpg, jpeg, gif)
+ * -- {locoName}.csv
+ */
+const downloadLocoInfosFiles = (locosData) => {
+  if (locosData.length > 0) {
+    const zip = new JSZip();
+
+    locosData.forEach((loco) => {
+      const locoZip = zip.folder(loco.shortName);
+      locoZip.file(`${loco.shortName}.json`, JSON.stringify(loco));
+
+      const imgUrl = loco.imageUrl ? loco.imageUrl : '/images/train.png';
+      const imgData = localStorage.getItem(imgUrl);
+      const imgExtension = imgUrl.match(/\.[0-9a-z]+$/i)[0];
+
+      const base64StringFromDataURL = imgData
+        .replace('data:', '')
+        .replace(/^.+,/, '');
+
+      locoZip.file(
+        `${loco.shortName}${imgExtension}`,
+        base64StringFromDataURL,
+        { base64: true },
+      );
+    });
+
+    zip.generateAsync({ type: 'blob' }).then((content) => {
+      saveAs(content, 'locos.zip');
+    });
+  }
+};
+
 export {
   listOfLocoKeys,
   listOfLocoFunctions,
@@ -179,4 +218,5 @@ export {
   humanFileSize,
   calculateSize,
   download,
+  downloadLocoInfosFiles,
 };

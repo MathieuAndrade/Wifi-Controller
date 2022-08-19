@@ -12,7 +12,7 @@
     modalToOpen
   } from '../../utils/store';
 
-  import { listOfLocoKeys, download } from '../../utils/utils';
+  import { listOfLocoKeys, downloadLocoInfosFiles } from '../../utils/utils';
   import { uploadFile } from '../../utils/api';
   import logger from '../../utils/log';
 
@@ -103,6 +103,7 @@
       <div class="tooltip tooltip-bottom" data-tip="{$_('addLoco')}">
         <button
           tabindex="0"
+          id="new-loco-button"
           class="btn btn-ghost gap-1 normal-case"
           on:click|preventDefault="{() => modalToOpen.set('newLoco')}">
           <Icon icon="cil:locomotive" class="w-6 h-6" />
@@ -161,7 +162,7 @@
         <button
           tabindex="0"
           class="btn btn-ghost gap-1 normal-case"
-          on:click|preventDefault="{() => download('locos.json', $locos)}">
+          on:click|preventDefault="{() => downloadLocoInfosFiles($locos)}">
           <Icon icon="ic:round-download" class="w-6 h-6" />
         </button>
       </div>
