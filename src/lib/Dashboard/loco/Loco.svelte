@@ -74,15 +74,12 @@
       class="tab tab-lifted xl:tab-lg {$location === '/dashboard/locomotive/cv/table' ? 'tab-active' : ''}">
       {$_('cvTable')}
     </a>
-
-    <!--
     <a
       use:link
       href="/dashboard/locomotive/cv/complexe"
       class="tab tab-lifted xl:tab-lg {$location === '/dashboard/locomotive/cv/complexe' ? 'tab-active' : ''}">
       {$_('cvComplexe')}
     </a>
-  -->
     <span class="tab tab-lifted xl:tab-lg flex-grow cursor-default"></span>
   </div>
 

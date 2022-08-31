@@ -4,7 +4,6 @@
   import {
     ws,
     cvId,
-    event,
     locos,
     selectedLoco,
     indexOfSelectedLoco,
@@ -14,7 +13,7 @@
   } from '../../../utils/store';
 
   import _ from '../../../utils/i18n';
-  import { range, toHex, toBin, sortByKey } from '../../../utils/utils';
+  import { range, toHex, toBin } from '../../../utils/utils';
   import message from '../../../utils/messages';
 
   import CvButton from './CvButton.svelte';
@@ -31,43 +30,6 @@
 
     if (!loco.cvs) {
       loco.cvs = []; // Force initialization for first run
-    }
-  });
-
-  event.on('dccMessage', (data) => {
-    if (data.includes(`<r${cvId}|${cvId}|`)) {
-      // <rID|ID|cv value>
-      const cv = parseInt(data.split('|')[2].split(' ')[0]);
-      let value = parseInt(data.split(' ')[1].replace('>', ''));
-
-      if (value === -1) {
-        addToast('error', 'Une erreur est survenue lors de la lecture de la valeur du CV');
-        return;
-      }
-
-      // If cv read is selected, bind his value
-      if (cv === cvToRead) {
-        cvToReadValue = value;
-      }
-
-      // If cv already exist, update his value
-      if (loco.cvs.some((c) => c.id === cv)) {
-        let index = loco.cvs.findIndex((c) => c.id === cv);
-        loco.cvs[index].value = value;
-      } else {
-        loco.cvs.push({
-          id: cv,
-          defaultValue: '',
-          value: value,
-        });
-
-        // Sort list if necessary
-        loco.cvs = sortByKey(loco.cvs, 'id');
-      }
-
-      // Finally save to list and display toast
-      onSave();
-      addToast('success', `Valeur du CV ${cv}: ${value}`);
     }
   });
 

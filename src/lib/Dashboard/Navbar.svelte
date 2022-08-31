@@ -112,6 +112,7 @@
 
       <div class="divider divider-horizontal"></div>
 
+      <!--
       <div
         class="tooltip tooltip-bottom"
         data-tip="{$_('openDMCView')}">
@@ -122,6 +123,7 @@
           <Icon icon="ic:baseline-smartphone" class="w-6 h-6" />
         </button>
       </div>
+      -->
 
       <div class="tooltip tooltip-bottom" data-tip="{$_('espStats')}">
         <button tabindex="0" class="btn btn-ghost gap-1 normal-case" on:click|preventDefault="{() => modalToOpen.set('espStats')}">

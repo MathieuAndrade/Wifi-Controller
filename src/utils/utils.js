@@ -206,6 +206,14 @@ const downloadLocoInfosFiles = (locosData) => {
   }
 };
 
+const findCvValue = (arr, id) => {
+  const index = arr.findIndex((c) => c.id === id);
+  if (index !== -1) {
+    return arr[index].value || 0;
+  }
+  return 0;
+};
+
 export {
   listOfLocoKeys,
   listOfLocoFunctions,
@@ -219,4 +227,5 @@ export {
   calculateSize,
   download,
   downloadLocoInfosFiles,
+  findCvValue,
 };
