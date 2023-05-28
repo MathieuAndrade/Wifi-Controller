@@ -120,13 +120,16 @@ const getFuncBytes = (state, func) => {
   return { byte1, byte2 };
 };
 
-const getDataUrl = (file) =>
-  new Promise((resolve, reject) => {
+const getDataUrl = (file) => {
+  if (typeof file === 'string' && file.startsWith('data:image')) return file;
+
+  return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
     reader.onerror = (error) => reject(error);
   });
+};
 
 const humanFileSize = (size) => {
   const i = Math.floor(Math.log(size) / Math.log(1024));
@@ -181,6 +184,11 @@ const downloadLocoInfosFiles = (locosData) => {
   if (locosData.length > 0) {
     const zip = new JSZip();
 
+    /*
+    const locoZip = zip.folder(loco.shortName);
+    locoZip.file(`${loco.shortName}.json`, JSON.stringify(loco));
+    */
+
     locosData.forEach((loco) => {
       const locoZip = zip.folder(loco.shortName);
       locoZip.file(`${loco.shortName}.json`, JSON.stringify(loco));
@@ -214,6 +222,15 @@ const findCvValue = (arr, id) => {
   return 0;
 };
 
+const isValidImage = (url) => {
+  if (url) {
+    const res = url.match(/(jpg|jpeg|png|webp|avif|gif|svg)/gm);
+    return res && res.length > 0;
+  }
+
+  return false;
+};
+
 export {
   listOfLocoKeys,
   listOfLocoFunctions,
@@ -228,4 +245,5 @@ export {
   download,
   downloadLocoInfosFiles,
   findCvValue,
+  isValidImage,
 };

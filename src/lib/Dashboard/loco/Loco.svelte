@@ -3,6 +3,7 @@
 
   import { selectedLoco } from '../../../utils/store';
   import _ from '../../../utils/i18n';
+  import { isValidImage } from '../../../utils/utils';
 
   import Image from '../../../lib/Image.svelte';
   import Throttle from './Throttle.svelte';
@@ -26,7 +27,7 @@
 
   <div class="flex flex-row space-x-5">
     <Image
-      imgUrl="{$selectedLoco.imageUrl ? $selectedLoco.imageUrl : '/images/train.png'}"
+      imgUrl="{isValidImage($selectedLoco.imageUrl) ? $selectedLoco.imageUrl : '/images/train.png'}"
       cssClass="border p-2 border-base-300 rounded-3xl shadow-lg max-h-44"
       width="{400}"/>
 
@@ -37,9 +38,9 @@
     </div>
 
     <div class="flex flex-col">
-      <span>{$selectedLoco.address}</span>
-      <span>{$selectedLoco.shortName}</span>
-      <span>{$selectedLoco.longName}</span>
+      <span>{$selectedLoco.address ? $selectedLoco.address : ''}</span>
+      <span>{$selectedLoco.shortName ? $selectedLoco.shortName : ''}</span>
+      <span>{$selectedLoco.longName ? $selectedLoco.longName : ''}</span>
     </div>
 
     <div class="flex flex-col">
@@ -49,9 +50,9 @@
     </div>
 
     <div class="flex flex-col">
-      <span>{$selectedLoco.mark}</span>
-      <span>{$selectedLoco.decoder}</span>
-      <span>{$selectedLoco.length}</span>
+      <span>{$selectedLoco.mark ? $selectedLoco.mark : ''}</span>
+      <span>{$selectedLoco.decoder ? $selectedLoco.decoder : ''}</span>
+      <span>{$selectedLoco.length ? $selectedLoco.length : ''}</span>
     </div>
   </div>
 

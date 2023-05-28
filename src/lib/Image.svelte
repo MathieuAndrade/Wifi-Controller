@@ -1,8 +1,8 @@
 <script lang="js">
-  import { url, selectedLoco } from '../utils/store';
+  import { url } from '../utils/store';
   import { afterUpdate } from 'svelte';
   import { getImageFromUrl } from '../utils/api';
-  import { getDataUrl } from '../utils/utils';
+  import { getDataUrl, isValidImage } from '../utils/utils';
 
   export let imgUrl = null;
   export let alt = '';
@@ -13,7 +13,9 @@
 
   afterUpdate(async () => {
     if (imgUrl && imgUrl.startsWith('/images')) {
-      const store = localStorage.getItem(imgUrl);
+      let store = localStorage.getItem(imgUrl);
+
+      if(!isValidImage(store)) store = undefined;
 
       if (store) {
         img = store;

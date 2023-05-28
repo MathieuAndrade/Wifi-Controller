@@ -7,6 +7,7 @@
   import EspStats from '../lib/EspStats/Modal.svelte';
   import DeleteLoco from '../lib/Dashboard/loco/DeleteLoco.svelte';
   import NewLoco from '../lib/Dashboard/NewLoco.svelte';
+  import LocoSelectorModal from '../lib/LocoSelectorModal.svelte';
 
   import Loco from '../lib/Dashboard/loco/Loco.svelte';
   import Feedback from '../lib/Dashboard/feedback/Feedback.svelte';
@@ -22,6 +23,8 @@
     addToast,
     selectedLoco,
   } from '../utils/store';
+
+  import { sortByKey } from '../utils/utils'
 
   const routes = {
     '/dashboard/locomotive': Loco,
@@ -59,6 +62,7 @@
 
       if (value === -1) {
         addToast('error', 'Une erreur est survenue lors de la lecture de la valeur du CV');
+        event.emit('cvError', cv);
         return;
       }
 
@@ -80,6 +84,7 @@
       // Finally save to list and display toast
       onSave();
       addToast('success', `Valeur du CV ${cv}: ${value}`);
+      event.emit('newCvValue', cv);
     }
   });
 </script>
@@ -93,6 +98,7 @@
   </Drawer>
 
   <Connection />
+  <LocoSelectorModal />
   <NewLoco />
   <DeleteLoco />
   <EspStats />

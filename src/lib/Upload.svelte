@@ -5,6 +5,7 @@
     locos,
     indexOfSelectedLoco,
     selectedLoco,
+    hasDataToSave,
   } from '../utils/store';
 
 
@@ -15,6 +16,7 @@
 
   export let imgUrl = null;
   export let hasSaveBtn = false;
+  export let onDeleteCb = () => null;
 
   let img = null;
   let imgName = null;
@@ -62,15 +64,14 @@
     }
   }
 
+  async function onDelete() {
+    imgUrl = null;
+    onDeleteCb();
+  }
+
   const onSave = async () => {
     try {
-      if (imgUrl.startsWith('/images')) {
-        await deleteFile(
-          $url,
-          $locos[$indexOfSelectedLoco].imageUrl.substring(1),
-        );
-        localStorage.removeItem($locos[$indexOfSelectedLoco].imageUrl);
-
+      if (imgUrl !== null && imgUrl.startsWith('/images')) {
         await uploadFile($url, img, imgUrl);
         localStorage.setItem(imgUrl, imgData);
       }
@@ -89,6 +90,7 @@
         { type: 'application/json' },
       );
       await uploadFile($url, data, 'locos.json');
+      hasDataToSave.set(false);
     } catch (error) {
       log.error(error);
     }
@@ -123,7 +125,7 @@
       />
       <button
         class="place-self-center absolute h-full w-full bg-base-100 opacity-0 hover:opacity-70"
-        on:click|preventDefault="{() => (imgUrl = null)}"
+        on:click|preventDefault="{onDelete}"
       >
         <Icon icon="mdi:trash-outline" class="inline-block w-7 h-7"/>
       </button>

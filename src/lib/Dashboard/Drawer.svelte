@@ -2,27 +2,11 @@
   import Icon from '@iconify/svelte';
   import { link } from 'svelte-spa-router';
 
-  import {
-    ws,
-    url,
-    locos,
-    selectedLoco,
-    indexOfSelectedLoco,
-    indexOfLocoToDelete,
-  } from '../../utils/store';
-  7;
+  import { ws, url } from '../../utils/store';
+
   import _ from '../../utils/i18n';
 
-  import Image from '../../lib/Image.svelte';
-
-  const onChange = (event) => {
-    indexOfSelectedLoco.set(event.currentTarget.value);
-    selectedLoco.set($locos[event.currentTarget.value]);
-  };
-
-  const onDelete = (index) => {
-    indexOfLocoToDelete.set(index);
-  };
+  import LocoList from '../LocoList.svelte';
 </script>
 
 <div class="drawer drawer-mobile">
@@ -47,8 +31,19 @@
           <span class="label-text">{$_('ipAddress')} :</span>
         </label>
         <div class="input-group">
-          <input id="address" name="address" type="text" placeholder="192.168.0.155:81" class="input input-bordered input-sm {!$ws ? 'input-error' : 'input-success'}" bind:value="{$url}" />
-          <button class="btn btn-square btn-sm px-2 w-auto {!$ws ? 'btn-error' : 'btn-success'}">
+          <input
+            id="address"
+            name="address"
+            type="text"
+            placeholder="192.168.0.155:81"
+            class="input input-bordered input-sm {!$ws
+              ? 'input-error'
+              : 'input-success'}"
+            bind:value="{$url}" />
+          <button
+            class="btn btn-square btn-sm px-2 w-auto {!$ws
+              ? 'btn-error'
+              : 'btn-success'}">
             {!$ws ? `${$_('connect')}` : `${$_('connected')}`}
           </button>
         </div>
@@ -57,12 +52,9 @@
       <ul class="menu flex flex-col p-0 px-4">
         <li></li>
         <li>
-          <a
-            use:link
-            href="/dashboard/locomotive"
-            class="flex gap-4">
+          <a use:link href="/dashboard/locomotive" class="flex gap-4">
             <span class="flex-none">
-              <Icon icon="cil:locomotive" class="w-6 h-6"/>
+              <Icon icon="cil:locomotive" class="w-6 h-6" />
             </span>
             <span class="flex-1">{$_('locomotive')}</span>
           </a>
@@ -93,35 +85,7 @@
         -->
       </ul>
 
-      <ul class="menu menu-compact flex flex-col p-0 px-4">
-        <li></li>
-
-        <li class="menu-title">
-          <span>{$_('locos')}</span>
-        </li>
-
-        {#each $locos as loco, index (index)}
-          <li>
-            <label class="cursor-pointer label flex w-full">
-              <Image imgUrl="{loco.imageUrl ? loco.imageUrl : '/images/train.png'}" alt="{loco.shortName}" width="{70}" />
-              <span class="label-text basis-20 text-center text-ellipsis overflow-hidden shrink whitespace-nowrap">{loco.shortName}</span>
-              <input
-                type="radio"
-                name="opt"
-                checked="{$indexOfSelectedLoco === index}"
-                class="radio"
-                on:change="{onChange}"
-                value="{index}" />
-              <button
-                class="z-20 btn btn-sm btn-outline btn-square no-padding"
-                title="{$_('deleteLoco')}"
-                on:click|preventDefault="{() => onDelete(index)}">
-                <Icon icon="mdi:trash-outline" class="w-4 h-4"/>
-              </button>
-            </label>
-          </li>
-        {/each}
-      </ul>
+      <LocoList />
     </aside>
   </div>
 </div>

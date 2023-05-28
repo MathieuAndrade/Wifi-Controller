@@ -10,6 +10,7 @@
     hasDataToSave,
     powerState,
     addToast,
+    event,
   } from '../../../utils/store';
 
   import _ from '../../../utils/i18n';
@@ -17,19 +18,59 @@
   import message from '../../../utils/messages';
 
   import CvButton from './CvButton.svelte';
+  import Checkbox from '../../Checkbox/Checkbox.svelte';
 
   let loco = {};
   let start = 1;
   let end = 10;
   let runners = [];
-  let cvToRead = 1;
-  let cvToReadValue = 1;
+  let selectedCV = 1;
+  let selectedCvValue = 1;
+  let factoryValues = false;
+  let cvWriting = 0;
+  let isWwritingCv = false;
+  let isReadingOneCv = false;
+  let isReadingMultipleCv = false;
 
   selectedLoco.subscribe((value) => {
     loco = value ? value : {}; // On first run value can be undefined
 
     if (!loco.cvs) {
       loco.cvs = []; // Force initialization for first run
+    }
+  });
+
+  event.on('newCvValue', (cv) => {
+    if (factoryValues) {
+      let index = loco.cvs.findIndex((c) => c.id === cv);
+      loco.cvs[index].defaultValue = loco.cvs[index].value;
+      onSave();
+    }
+
+    if (cv === selectedCV) {
+      isReadingOneCv = false;
+    }
+
+    if (cv === end) {
+      isReadingMultipleCv = false;
+    }
+
+    if (cv === cvWriting) {
+      isWwritingCv = false;
+    }
+  });
+
+  event.on('cvError', (cv) => {
+    if (cv === selectedCV) {
+      isReadingOneCv = false;
+    }
+
+    if (cv === end) {
+      isReadingMultipleCv = false;
+    }
+
+    if (cv === 2) {
+      isWwritingCv = false;
     }
   });
 
@@ -65,29 +106,26 @@
 
   const onRead = (value) => {
     if ($powerState) {
+      isReadingOneCv = true;
       readCvs([value]);
     } else {
-      addToast('warning', 'L\'alimentation est coupé');
+      addToast('warning', "L'alimentation est coupé");
     }
   };
 
-  const onWrite = (list) => {
+  const onWrite = (cv, value = null) => {
     if ($powerState) {
-      let interval = 3000;
-      let increment = 1;
+      isWwritingCv = true;
+      cvWriting = cv;
 
-      list.forEach((cv) => {
-        const runner = setTimeout(() => {
-          let index = loco.cvs.findIndex((c) => c.id === cv);
-          $ws.send(message.writeCv(cv, loco.cvs[index].value, cvId));
-
-          clearTimeout(runner);
-        }, interval * increment);
-
-        increment = increment + 1;
-      });
+      if (value) {
+        $ws.send(message.writeCv(cv, value, cvId));
+      } else {
+        let index = loco.cvs.findIndex((c) => c.id === cv);
+        $ws.send(message.writeCv(cv, loco.cvs[index].value, cvId));
+      }
     } else {
-      addToast('warning', 'L\'alimentation est coupé');
+      addToast('warning', "L'alimentation est coupé");
     }
   };
 
@@ -95,25 +133,46 @@
 
   const onReadMulitple = () => {
     if ($powerState && start <= end) {
+      isReadingMultipleCv = true;
       readCvs(range(start, end));
     } else {
-      addToast('warning', 'L\'alimentation est coupé');
+      addToast('warning', "L'alimentation est coupé");
     }
   };
 
   const onStopReadMulitple = () => {
+    isReadingMultipleCv = false;
     runners.forEach((runner) => {
       clearTimeout(runner);
     });
   };
 
-  const onCvToReadChange = () => {
+  const onSelectedCvChange = () => {
     // If cv already exist, get his value
-    if (loco.cvs.some((c) => c.id === cvToRead)) {
-      let index = loco.cvs.findIndex((c) => c.id === cvToRead);
-      cvToReadValue = loco.cvs[index].value;
+    if (loco.cvs.some((c) => c.id === selectedCV)) {
+      let index = loco.cvs.findIndex((c) => c.id === selectedCV);
+      selectedCvValue = loco.cvs[index].value;
+    } else {
+      selectedCvValue = 0;
     }
   };
+
+  const mergeCvValues = (cv) => {
+    if (loco.cvs.length > 0) {
+      if (cv !== -1) {
+        let index = loco.cvs.findIndex((c) => c.id === cv);
+        loco.cvs[index].defaultValue = loco.cvs[index].value;
+        onSave();
+      } else {
+        loco.cvs.forEach((_, index) => {
+          loco.cvs[index].defaultValue = loco.cvs[index].value;
+          onSave();
+        });
+      }
+    }
+  };
+
+  // CV61 et CV10 BEMF (Compensation de charge)
 </script>
 
 <div class="flex flex-col xl:flex-row xl:justify-evenly">
@@ -128,27 +187,31 @@
       <input
         class="input input-ghost input-bordered input-sm max-w-xs"
         type="number"
-        name="cvToRead"
-        id="cvToRead"
+        name="selectedCv"
+        id="selectedCv"
         min="0"
         max="512"
-        bind:value="{cvToRead}"
-        on:change="{onCvToReadChange}" />
+        bind:value="{selectedCV}"
+        on:change="{onSelectedCvChange}" />
 
       <label for="start">{$_('value')}:</label>
 
       <input
         class="input input-ghost input-bordered input-sm max-w-xs"
         type="number"
-        name="cvToReadValue"
-        id="cvToReadValue"
+        name="selectedCvValue"
+        id="selectedCvValue"
         min="0"
         max="255"
-        bind:value="{cvToReadValue}" />
+        bind:value="{selectedCvValue}" />
 
       <CvButton
-        onReadClick="{() => onRead(cvToRead)}"
-        onWriteClick="{() => onWrite([cvToRead])}" />
+        onReadClick="{() => onRead(selectedCV)}"
+        onWriteClick="{() => onWrite(selectedCV, selectedCvValue)}" />
+
+      <span
+        class="btn btn-ghost loading {!isWwritingCv & !isReadingOneCv &&
+          'invisible'}"></span>
     </div>
   </div>
 
@@ -158,6 +221,10 @@
     </span>
 
     <div class="flex flex-row items-center gap-3 my-5">
+      <div class="tooltip" data-tip="{$_('readGroupOfCvNote')}">
+        <Icon icon="ic:round-help-outline" class="w-5 h-5 mr-2" />
+      </div>
+
       <label for="start">{$_('start')}:</label>
 
       <input
@@ -180,9 +247,9 @@
         max="512"
         bind:value="{end}" />
 
-      <div class="tooltip" data-tip="{$_('readGroupOfCvNote')}">
-        <Icon icon="ic:round-help-outline" class="w-5 h-5 mr-2" />
-      </div>
+      <Checkbox
+        label="{$_('defaultValue')}"
+        onChange="{() => (factoryValues = !factoryValues)}" />
 
       <button
         class="btn btn-outline btn-xs btn-error mr-0 lg:mr-2"
@@ -197,12 +264,17 @@
         <Icon icon="ic:outline-play-circle" class="w-5 h-5 mr-2" />
         {$_('starting')}
       </button>
+
+      <span class="btn btn-ghost loading {!isReadingMultipleCv && 'invisible'}"
+      ></span>
     </div>
   </div>
 </div>
 
 <div>
-  <span class="text-lg underline underline-offset-4 mb-5"> {$_('cvList')} </span>
+  <span class="text-lg underline underline-offset-4 mb-5">
+    {$_('cvList')}
+  </span>
 
   <table class="table w-full table-compact text-center my-5">
     <thead>
@@ -210,6 +282,17 @@
         <th class="w-16">{$_('cv')}</th>
         <th class="w-32 md:w-80 lg:w-auto">{$_('label')}</th>
         <th class="w-20 md:w-80 lg:w-auto">{$_('defaultValue')}</th>
+        <th class="w-8">
+          <div
+            class="tooltip normal-case whitespace-normal"
+            data-tip="{$_('mergeFactoryValues')}">
+            <button
+              class="btn btn-outline btn-xs"
+              on:click|preventDefault="{() => mergeCvValues(-1)}">
+              <Icon icon="ic:round-compare-arrows" class="w-5 h-5" />
+            </button>
+          </div>
+        </th>
         <th class="w-20 md:w-80 lg:w-auto">
           {$_('currentValue')} ({$_('dec')})
         </th>
@@ -225,7 +308,7 @@
     <tbody>
       {#each loco.cvs as cv}
         <tr>
-          <th>{cv.id}</th>
+          <td>{cv.id}</td>
           <td class="truncate">
             {#if $_(`cv${cv.id}`) !== `cv${cv.id}`}
               {$_(`cv${cv.id}`)}
@@ -239,6 +322,15 @@
               id="cv-{cv.id}-default-value"
               bind:value="{cv.defaultValue}"
               on:input="{onSave}" />
+          </td>
+          <td class="w-8">
+            <div class="tooltip" data-tip="{$_('mergeFactoryValues')}">
+              <button
+                class="btn btn-xs btn-ghost btn-outline"
+                on:click|preventDefault="{() => mergeCvValues(cv.id)}">
+                <Icon icon="ic:round-compare-arrows" class="w-5 h-5" />
+              </button>
+            </div>
           </td>
           <td>
             <input
@@ -254,7 +346,7 @@
           <td>
             <CvButton
               onReadClick="{() => onRead(cv.id)}"
-              onWriteClick="{() => onWrite([cv.id])}" />
+              onWriteClick="{() => onWrite(cv.id)}" />
           </td>
         </tr>
       {/each}

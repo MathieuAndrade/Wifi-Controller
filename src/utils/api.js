@@ -1,5 +1,9 @@
 /* eslint-env browser */
 
+import train from './train';
+
+const getTrainImage = async () => train;
+
 const getImageFromUrl = async (url, img) => {
   let imgUrl = `http://${url}${img}`;
 
@@ -9,7 +13,12 @@ const getImageFromUrl = async (url, img) => {
 
   return fetch(imgUrl, {
     method: 'GET',
-  }).then((response) => response.blob());
+  }).then((response) => {
+    if (response.status === 500 && img === '/images/train.png') {
+      return getTrainImage();
+    }
+    return response.blob();
+  });
 };
 
 const uploadFile = (url, file, fileName) => {

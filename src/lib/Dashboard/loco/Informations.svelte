@@ -1,6 +1,6 @@
 <script lang="js">
-  import { afterUpdate } from 'svelte';
   import {
+    url,
     locos,
     selectedLoco,
     indexOfSelectedLoco,
@@ -9,6 +9,7 @@
 
   import _ from '../../../utils/i18n';
   import { listOfLocoFunctions } from '../../../utils/utils';
+  import { deleteFile } from '../../../utils/api';
 
   import Upload from '../../../lib/Upload.svelte';
 
@@ -32,11 +33,19 @@
     hasDataToSave.set(true);
   };
 
-  afterUpdate(() => {
-    if (child) {
-      child.setImage(imgUrl);
+  const onDeleteImg = async () => {
+    if ($selectedLoco.imageUrl && $selectedLoco.imageUrl.startsWith('/images')) {
+      await deleteFile(
+        $url,
+        $selectedLoco.imageUrl.substring(1),
+      );
+      localStorage.removeItem($selectedLoco.imageUrl);
     }
-  });
+
+    imgUrl = null;
+    $selectedLoco.imageUrl = null;
+    onSave();
+  }
 </script>
 
 <div class="flex flex-col space-y-5">
@@ -150,7 +159,7 @@
       <span class="text-lg underline underline-offset-4 mb-3">
         {$_('image')}
       </span>
-      <Upload bind:this="{child}" bind:imgUrl hasSaveBtn="{true}" />
+      <Upload bind:this="{child}" bind:imgUrl hasSaveBtn="{true}" onDeleteCb={onDeleteImg} />
     </div>
   </div>
 

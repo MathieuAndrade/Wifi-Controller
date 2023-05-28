@@ -5,8 +5,9 @@
     ws,
     locos,
     selectedLoco,
-    indexOfSelectedLoco,
+    modalToOpen,
     powerState,
+    indexOfSelectedLoco,
   } from '../utils/store';
 
   import _ from '../utils/i18n';
@@ -25,7 +26,6 @@
       const data = await getLocos($url);
       locos.set(data);
       selectedLoco.set($locos[0] || {}); // If is undefined set empty object to avoid errors
-      indexOfSelectedLoco.set(0);
       powerState.set(false);
 
       document
@@ -39,7 +39,9 @@
 
       // If loco list is empty, open new loco modal
       if ($locos.length === 0) {
-        document.getElementById('new-loco-button').click();
+        modalToOpen.set('newLoco');
+      } else {
+        modalToOpen.set('locoSelector');
       }
     } catch (error) {
       log.error(error);
@@ -79,7 +81,8 @@
         <span
           id="connection-loading"
           class="btn btn-ghost font-semibold text-lg normal-case loading">
-          {$_('connectionTo')} {$url}
+          {$_('connectionTo')}
+          {$url}
         </span>
       {/if}
 
