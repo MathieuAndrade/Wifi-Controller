@@ -1,11 +1,11 @@
 <script lang="js">
   import Icon from '@iconify/svelte';
   import {
-    ws,
-    selectedLoco,
+    addToast,
     indexOfSelectedLoco,
     powerState,
-    addToast,
+    selectedLoco,
+    ws,
   } from '../../../utils/store';
 
   import _ from '../../../utils/i18n';
@@ -51,7 +51,7 @@
 <div>
   <div class="flex flex-row space-x-7 justify-evenly">
     <div class="grow-0 hidden xl:block">
-      <Gauge bind:speed onSpeedChange="{onSpeedChange}" />
+      <Gauge bind:speed="{speed}" onSpeedChange="{onSpeedChange}" />
     </div>
     <div class="grow-0 w-16">
       <input
@@ -74,7 +74,8 @@
             alt=""
             width="120"
             height="120"
-            on:click|preventDefault="{onPower}" />
+            on:click|preventDefault="{onPower}"
+            on:keydown="{(e) => e.key === 'Enter' && onPower()}" />
         {:else}
           <span>{$_('freeWay')}</span>
           <img
@@ -83,7 +84,8 @@
             alt=""
             width="84"
             height="178"
-            on:click|preventDefault="{onPower}" />
+            on:click|preventDefault="{onPower}"
+            on:keydown="{(e) => e.key === 'Enter' && onPower()}" />
         {/if}
       </div>
       <div class="flex flex-row space-x-2 justify-between">
@@ -91,7 +93,9 @@
           class="btn btn-outline btn-sm rounded-btn
           {dir === 1 ? '' : 'btn-accent'}"
           on:click|preventDefault="{onChangeDirection}">
-          <Icon icon="eva:arrow-circle-left-outline" class="inline-block w-5 h-5 lg:mr-2" />
+          <Icon
+            icon="eva:arrow-circle-left-outline"
+            class="inline-block w-5 h-5 lg:mr-2" />
           <span class="hidden lg:block">{$_('forward')}</span>
         </button>
 
@@ -100,7 +104,9 @@
           {dir === 0 ? '' : 'btn-accent'}"
           on:click|preventDefault="{onChangeDirection}">
           <span class="hidden lg:block">{$_('backward')}</span>
-          <Icon icon="eva:arrow-circle-right-outline" class="inline-block w-5 h-5 lg:ml-2" />
+          <Icon
+            icon="eva:arrow-circle-right-outline"
+            class="inline-block w-5 h-5 lg:ml-2" />
         </button>
       </div>
 
@@ -115,6 +121,6 @@
 
   <div
     class="rounded-box border border-base-300 p-5 mt-5 grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
-      <LocoFunctions bind:address />
+    <LocoFunctions bind:address="{address}" />
   </div>
 </div>

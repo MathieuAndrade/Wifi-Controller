@@ -3,21 +3,21 @@
   import { locale } from 'svelte-i18n';
 
   import {
-    ws,
-    url,
-    locos,
-    hasDataToSave,
     event,
+    hasDataToSave,
+    locos,
+    modalToOpen,
     powerState,
-    modalToOpen
+    url,
+    ws,
   } from '../../utils/store';
 
-  import { listOfLocoKeys, downloadLocoInfosFiles } from '../../utils/utils';
   import { uploadFile } from '../../utils/api';
   import logger from '../../utils/log';
+  import { downloadLocoInfosFiles, listOfLocoKeys } from '../../utils/utils';
 
-  import messages from '../../utils/messages';
   import _ from '../../utils/i18n';
+  import messages from '../../utils/messages';
 
   locale.subscribe((value) => {
     console.log('locale changed to', value);
@@ -79,7 +79,7 @@
         <span class="text-lg font-bold"> WDD </span>
       </div>
 
-      <label tabindex="0" class="swap btn btn-ghost gap-1">
+      <label class="swap btn btn-ghost gap-1">
         <input type="checkbox" on:change="{onPower}" checked="{$powerState}" />
         <div class="swap-on">
           <span class="badge badge-success">{$_('statusOn')}</span>
@@ -126,7 +126,10 @@
       -->
 
       <div class="tooltip tooltip-bottom" data-tip="{$_('espStats')}">
-        <button tabindex="0" class="btn btn-ghost gap-1 normal-case" on:click|preventDefault="{() => modalToOpen.set('espStats')}">
+        <button
+          tabindex="0"
+          class="btn btn-ghost gap-1 normal-case"
+          on:click|preventDefault="{() => modalToOpen.set('espStats')}">
           <Icon icon="material-symbols:query-stats-rounded" class="w-6 h-6" />
         </button>
       </div>
@@ -170,20 +173,24 @@
       </div>
 
       <div title="Change Language" class="dropdown dropdown-end">
-        <div tabindex="0" class="btn btn-ghost gap-1 normal-case">
+        <div tabindex="-1" class="btn btn-ghost gap-1 normal-case">
           <Icon icon="tabler:language" class="w-6 h-6" />
         </div>
         <div
           class="dropdown-content bg-base-200 text-base-content rounded-t-box rounded-b-box top-px mt-16 w-56 overflow-y-auto shadow-2xl">
-          <ul class="menu menu-compact gap-1 p-3" tabindex="0">
+          <ul class="menu menu-compact gap-1 p-3">
             <li>
-              <button class="flex {$locale.includes('fr') ? 'active' : ''}" on:click|preventDefault="{() => locale.set('fr')}">
+              <button
+                class="flex {$locale.includes('fr') ? 'active' : ''}"
+                on:click|preventDefault="{() => locale.set('fr')}">
                 <Icon icon="emojione-v1:flag-for-france" class="w-6 h-6" />
                 <span class="flex flex-1 justify-between"> Français </span>
               </button>
             </li>
             <li>
-              <button class="flex {$locale.includes('en') ? 'active' : ''}" on:click|preventDefault="{() => locale.set('en')}">
+              <button
+                class="flex {$locale.includes('en') ? 'active' : ''}"
+                on:click|preventDefault="{() => locale.set('en')}">
                 <Icon
                   icon="emojione-v1:flag-for-united-kingdom"
                   class="w-6 h-6" />
@@ -191,7 +198,9 @@
               </button>
             </li>
             <li>
-              <button class="flex {$locale.includes('es') ? 'active' : ''}" on:click|preventDefault="{() => locale.set('es')}">
+              <button
+                class="flex {$locale.includes('es') ? 'active' : ''}"
+                on:click|preventDefault="{() => locale.set('es')}">
                 <Icon icon="emojione-v1:flag-for-spain" class="w-6 h-6" />
                 <span class="flex flex-1 justify-between"> Español </span>
               </button>

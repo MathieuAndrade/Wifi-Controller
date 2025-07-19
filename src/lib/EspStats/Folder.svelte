@@ -1,6 +1,6 @@
 <script lang="js">
-  import { slide } from 'svelte/transition';
   import Icon from '@iconify/svelte';
+  import { slide } from 'svelte/transition';
   import _ from '../../utils/i18n';
 
   import File from './File.svelte';
@@ -17,8 +17,13 @@
   };
 </script>
 
-<span class="cursor-pointer" on:click="{toggle}">
-  <Icon icon="{expanded ? 'mdi:folder-open' : 'mdi:folder'}" class="inline-block w-5 h-5 mr-2 text-accent" />
+<span
+  class="cursor-pointer"
+  on:click="{toggle}"
+  on:keydown="{(e) => e.key === 'Enter' && toggle()}">
+  <Icon
+    icon="{expanded ? 'mdi:folder-open' : 'mdi:folder'}"
+    class="inline-block w-5 h-5 mr-2 text-accent" />
   {#if name === 'root'}
     {$_('root')}
   {:else}
