@@ -2,7 +2,7 @@
   import Icon from '@iconify/svelte';
   import { link } from 'svelte-spa-router';
 
-  import { ws, url } from '../../utils/store';
+  import { modalToOpen, url, ws } from '../../utils/store';
 
   import _ from '../../utils/i18n';
 
@@ -43,7 +43,8 @@
           <button
             class="btn btn-square btn-sm px-2 w-auto {!$ws
               ? 'btn-error'
-              : 'btn-success'}">
+              : 'btn-success'}"
+            on:click="{() => modalToOpen.set('connexionModal')}">
             {!$ws ? `${$_('connect')}` : `${$_('connected')}`}
           </button>
         </div>

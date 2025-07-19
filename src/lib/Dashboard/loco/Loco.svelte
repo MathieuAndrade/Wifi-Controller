@@ -1,15 +1,15 @@
 <script lang="js">
-  import Router, { link, location} from 'svelte-spa-router';
+  import Router, { link, location } from 'svelte-spa-router';
 
-  import { selectedLoco } from '../../../utils/store';
   import _ from '../../../utils/i18n';
+  import { selectedLoco } from '../../../utils/store';
   import { isValidImage } from '../../../utils/utils';
 
   import Image from '../../../lib/Image.svelte';
-  import Throttle from './Throttle.svelte';
-  import Informations from './Informations.svelte';
-  import CvTable from './CvTable.svelte';
   import CvComplexe from './CvComplexe.svelte';
+  import CvTable from './CvTable.svelte';
+  import Informations from './Informations.svelte';
+  import Throttle from './Throttle.svelte';
 
   const routes = {
     '/dashboard/locomotive': Throttle,
@@ -17,7 +17,7 @@
     '/dashboard/locomotive/informations': Informations,
     '/dashboard/locomotive/cv/table': CvTable,
     '/dashboard/locomotive/cv/complexe': CvComplexe,
-  }
+  };
 </script>
 
 <div>
@@ -27,9 +27,11 @@
 
   <div class="flex flex-row space-x-5">
     <Image
-      imgUrl="{isValidImage($selectedLoco.imageUrl) ? $selectedLoco.imageUrl : '/images/train.png'}"
-      cssClass="border p-2 border-base-300 rounded-3xl shadow-lg max-h-44"
-      width="{400}"/>
+      imgUrl="{isValidImage($selectedLoco.imageUrl)
+        ? $selectedLoco.imageUrl
+        : '/images/train.png'}"
+      cssClass="border p-2 border-base-300 rounded-3xl shadow-lg max-h-44 w-40 md:w-64 lg:w-96"
+      width="{400}" />
 
     <div class="flex flex-col">
       <span class="font-bold">{$_('address')} :</span>
@@ -43,13 +45,13 @@
       <span>{$selectedLoco.longName ? $selectedLoco.longName : ''}</span>
     </div>
 
-    <div class="flex flex-col">
+    <div class="flex-col hidden xl:flex">
       <span class="font-bold">{$_('locoMark')} :</span>
       <span class="font-bold">{$_('locoDecoder')} :</span>
       <span class="font-bold">{$_('length')} :</span>
     </div>
 
-    <div class="flex flex-col">
+    <div class="flex-col hidden xl:flex">
       <span>{$selectedLoco.mark ? $selectedLoco.mark : ''}</span>
       <span>{$selectedLoco.decoder ? $selectedLoco.decoder : ''}</span>
       <span>{$selectedLoco.length ? $selectedLoco.length : ''}</span>
@@ -60,29 +62,41 @@
     <a
       use:link
       href="/dashboard/locomotive/throttle"
-      class="tab tab-lifted xl:tab-lg {$location === '/dashboard/locomotive/throttle' ? 'tab-active' : ''} {$location === '/dashboard/locomotive' ? 'tab-active' : ''}">
+      class="tab tab-lifted xl:tab-lg {$location ===
+      '/dashboard/locomotive/throttle'
+        ? 'tab-active'
+        : ''} {$location === '/dashboard/locomotive' ? 'tab-active' : ''}">
       {$_('steering')}
     </a>
     <a
       use:link
       href="/dashboard/locomotive/informations"
-      class="tab tab-lifted xl:tab-lg {$location === '/dashboard/locomotive/informations' ? 'tab-active' : ''}">
+      class="tab tab-lifted xl:tab-lg {$location ===
+      '/dashboard/locomotive/informations'
+        ? 'tab-active'
+        : ''}">
       {$_('informations')}
     </a>
     <a
       use:link
       href="/dashboard/locomotive/cv/table"
-      class="tab tab-lifted xl:tab-lg {$location === '/dashboard/locomotive/cv/table' ? 'tab-active' : ''}">
+      class="tab tab-lifted xl:tab-lg {$location ===
+      '/dashboard/locomotive/cv/table'
+        ? 'tab-active'
+        : ''}">
       {$_('cvTable')}
     </a>
     <a
       use:link
       href="/dashboard/locomotive/cv/complexe"
-      class="tab tab-lifted xl:tab-lg {$location === '/dashboard/locomotive/cv/complexe' ? 'tab-active' : ''}">
+      class="tab tab-lifted xl:tab-lg {$location ===
+      '/dashboard/locomotive/cv/complexe'
+        ? 'tab-active'
+        : ''}">
       {$_('cvComplexe')}
     </a>
     <span class="tab tab-lifted xl:tab-lg flex-grow cursor-default"></span>
   </div>
 
-  <Router {routes} />
+  <Router routes="{routes}" />
 </div>

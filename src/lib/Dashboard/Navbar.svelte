@@ -21,6 +21,7 @@
 
   locale.subscribe((value) => {
     console.log('locale changed to', value);
+    localStorage.setItem('locale', value);
   });
 
   event.on('dccMessage', (data) => {
@@ -80,7 +81,11 @@
       </div>
 
       <label class="swap btn btn-ghost gap-1">
-        <input type="checkbox" on:change="{onPower}" checked="{$powerState}" />
+        <input
+          type="checkbox"
+          on:change="{onPower}"
+          checked="{$powerState}"
+          disabled="{!$ws}" />
         <div class="swap-on">
           <span class="badge badge-success">{$_('statusOn')}</span>
         </div>

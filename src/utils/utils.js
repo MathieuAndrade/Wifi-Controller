@@ -1,6 +1,7 @@
 /* eslint-env browser */
-import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
+import { json2csv } from 'json-2-csv';
+import JSZip from 'jszip';
 
 const listOfLocoKeys = [
   'address',
@@ -176,6 +177,9 @@ const download = (name, data) => {
  * Zip Name: Locos
  * Zip Architecture
  * root /
+ * - locosData.json
+ * - images /
+ * -- all images (png, jpg, jpeg, gif)
  * - {locoName} /
  * -- {locoName}.img (png, jpg, jpeg, gif)
  * -- {locoName}.csv
@@ -184,28 +188,37 @@ const downloadLocoInfosFiles = (locosData) => {
   if (locosData.length > 0) {
     const zip = new JSZip();
 
-    /*
-    const locoZip = zip.folder(loco.shortName);
-    locoZip.file(`${loco.shortName}.json`, JSON.stringify(loco));
-    */
+    // Add locosData to zip
+    const globalDataFolder = zip.folder('locos');
+    globalDataFolder.file('locosData.json', JSON.stringify(locosData));
+    const imagesFolder = globalDataFolder.folder('images');
 
     locosData.forEach((loco) => {
       const locoZip = zip.folder(loco.shortName);
-      locoZip.file(`${loco.shortName}.json`, JSON.stringify(loco));
+
+      const locoDataWithoutCvs = { ...loco };
+      delete locoDataWithoutCvs.cvs;
+
+      locoZip.file(
+        `${loco.shortName}.csv`,
+        json2csv(locoDataWithoutCvs, { emptyFields: true }),
+      );
+
+      locoZip.file(
+        `${loco.shortName}_cvs.csv`,
+        json2csv(loco.cvs, { emptyFields: true }),
+      );
 
       const imgUrl = loco.imageUrl ? loco.imageUrl : '/images/train.png';
       const imgData = localStorage.getItem(imgUrl);
-      const imgExtension = imgUrl.match(/\.[0-9a-z]+$/i)[0];
+      const realImgName = imgUrl.split('/').pop();
 
       const base64StringFromDataURL = imgData
         .replace('data:', '')
         .replace(/^.+,/, '');
 
-      locoZip.file(
-        `${loco.shortName}${imgExtension}`,
-        base64StringFromDataURL,
-        { base64: true },
-      );
+      locoZip.file(realImgName, base64StringFromDataURL, { base64: true });
+      imagesFolder.file(realImgName, base64StringFromDataURL, { base64: true });
     });
 
     zip.generateAsync({ type: 'blob' }).then((content) => {
@@ -232,18 +245,18 @@ const isValidImage = (url) => {
 };
 
 export {
-  listOfLocoKeys,
-  listOfLocoFunctions,
-  range,
-  toHex,
-  toBin,
-  sortByKey,
-  getFuncBytes,
-  getDataUrl,
-  humanFileSize,
   calculateSize,
   download,
   downloadLocoInfosFiles,
   findCvValue,
+  getDataUrl,
+  getFuncBytes,
+  humanFileSize,
   isValidImage,
+  listOfLocoFunctions,
+  listOfLocoKeys,
+  range,
+  sortByKey,
+  toBin,
+  toHex
 };

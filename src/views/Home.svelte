@@ -1,10 +1,12 @@
 <script lang="js">
-  import { link } from 'svelte-spa-router';
   import Icon from '@iconify/svelte';
+  import { link, push } from 'svelte-spa-router';
 
   import _ from '../utils/i18n';
 
   const version = __APP_VERSION__;
+
+  push('/dashboard/locomotive'); // Redirect to dashboard on first load
 </script>
 
 <div class="min-h-screen bg-base-200 text-center hero p-5">
@@ -33,7 +35,7 @@
             <div class="justify-end card-actions">
               <a class="btn btn-outline" href="/dashboard/locomotive" use:link>
                 {$_('dashboardTitle')}
-                <Icon icon="ep:arrow-right-bold" class="w-6 h-6 ml-2"/>
+                <Icon icon="ep:arrow-right-bold" class="w-6 h-6 ml-2" />
               </a>
             </div>
           </div>

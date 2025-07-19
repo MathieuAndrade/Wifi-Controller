@@ -2,11 +2,11 @@
   import Icon from '@iconify/svelte';
 
   import {
-    locos,
-    selectedLoco,
-    indexOfSelectedLoco,
     indexOfLocoToDelete,
+    indexOfSelectedLoco,
+    locos,
     modalToOpen,
+    selectedLoco,
   } from '../utils/store';
 
   import _ from '../utils/i18n';
@@ -17,10 +17,12 @@
   export let id = 'loco_list';
   export let hasHeader = true;
 
-  const onChange = (event) => {
+  const onSelect = (event) => {
     indexOfSelectedLoco.set(Number(event.currentTarget.value));
     selectedLoco.set($locos[event.currentTarget.value]);
     modalToOpen.set('');
+    localStorage.setItem('selectedLoco', JSON.stringify($selectedLoco));
+    localStorage.setItem('indexOfSelectedLoco', $indexOfSelectedLoco);
   };
 
   const onDelete = (index) => {
@@ -28,7 +30,7 @@
   };
 </script>
 
-<ul id={id} class="menu menu-compact flex flex-col p-0 px-4">
+<ul id="{id}" class="menu menu-compact flex flex-col p-0 px-4">
   {#if hasHeader}
     <li></li>
 
@@ -40,7 +42,9 @@
     <li>
       <label class="cursor-pointer label flex w-full">
         <Image
-          imgUrl="{isValidImage(loco.imageUrl) ? loco.imageUrl : '/images/train.png'}"
+          imgUrl="{isValidImage(loco.imageUrl)
+            ? loco.imageUrl
+            : '/images/train.png'}"
           alt="{loco.shortName}"
           width="{70}" />
         <span
@@ -48,11 +52,11 @@
           >{loco.shortName}</span>
         <input
           type="radio"
-          name={id+index}
-          id={id+index}
+          name="{id + index}"
+          id="{id + index}"
           checked="{$indexOfSelectedLoco === index}"
           class="radio"
-          on:change="{onChange}"
+          on:click="{onSelect}"
           value="{index}" />
         <button
           class="z-20 btn btn-sm btn-outline btn-square no-padding"

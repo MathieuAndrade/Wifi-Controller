@@ -2,23 +2,23 @@
   import Icon from '@iconify/svelte';
 
   import {
-    ws,
-    cvId,
-    locos,
-    selectedLoco,
-    indexOfSelectedLoco,
-    hasDataToSave,
-    powerState,
     addToast,
+    cvId,
     event,
+    hasDataToSave,
+    indexOfSelectedLoco,
+    locos,
+    powerState,
+    selectedLoco,
+    ws,
   } from '../../../utils/store';
 
   import _ from '../../../utils/i18n';
-  import { range, toHex, toBin } from '../../../utils/utils';
   import message from '../../../utils/messages';
+  import { range, toBin, toHex } from '../../../utils/utils';
 
-  import CvButton from './CvButton.svelte';
   import Checkbox from '../../Checkbox/Checkbox.svelte';
+  import CvButton from './CvButton.svelte';
 
   let loco = {};
   let start = 1;
@@ -175,7 +175,7 @@
   // CV61 et CV10 BEMF (Compensation de charge)
 </script>
 
-<div class="flex flex-col xl:flex-row xl:justify-evenly">
+<div class="flex flex-col 2xl:flex-row 2xl:justify-evenly">
   <div>
     <span class="text-lg underline underline-offset-4 mb-5">
       {$_('editSpecificCv')}
@@ -281,7 +281,7 @@
       <tr>
         <th class="w-16">{$_('cv')}</th>
         <th class="w-32 md:w-80 lg:w-auto">{$_('label')}</th>
-        <th class="w-20 md:w-80 lg:w-auto">{$_('defaultValue')}</th>
+        <th class="w-20 xl:w-32 2xl:w-auto">{$_('defaultValue')}</th>
         <th class="w-8">
           <div
             class="tooltip normal-case whitespace-normal"
@@ -293,7 +293,7 @@
             </button>
           </div>
         </th>
-        <th class="w-20 md:w-80 lg:w-auto">
+        <th class="w-20 xl:w-32 2xl:w-auto">
           {$_('currentValue')} ({$_('dec')})
         </th>
         <th class="hidden xl:table-cell">
@@ -316,7 +316,7 @@
           </td>
           <td>
             <input
-              class="input input-ghost input-bordered input-sm w-32 lg:w-auto"
+              class="input input-ghost input-bordered input-sm w-20 xl:w-32 2xl:w-auto"
               type="number"
               name="cv-{cv.id}-default-value"
               id="cv-{cv.id}-default-value"
@@ -334,7 +334,7 @@
           </td>
           <td>
             <input
-              class="input input-ghost input-bordered input-sm w-32 lg:w-auto"
+              class="input input-ghost input-bordered input-sm w-20 xl:w-32 2xl:w-auto"
               type="number"
               name="cv-{cv.id}-current-value"
               id="cv-{cv.id}-current-value"

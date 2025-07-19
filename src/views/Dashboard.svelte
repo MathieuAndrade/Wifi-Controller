@@ -1,30 +1,30 @@
 <script lang="js">
   import Router from 'svelte-spa-router';
 
-  import Drawer from '../lib/Dashboard/Drawer.svelte';
-  import Navbar from '../lib/Dashboard/Navbar.svelte';
   import Connection from '../lib/Connection.svelte';
-  import EspStats from '../lib/EspStats/Modal.svelte';
+  import Drawer from '../lib/Dashboard/Drawer.svelte';
   import DeleteLoco from '../lib/Dashboard/loco/DeleteLoco.svelte';
+  import Navbar from '../lib/Dashboard/Navbar.svelte';
   import NewLoco from '../lib/Dashboard/NewLoco.svelte';
+  import EspStats from '../lib/EspStats/Modal.svelte';
   import LocoSelectorModal from '../lib/LocoSelectorModal.svelte';
 
-  import Loco from '../lib/Dashboard/loco/Loco.svelte';
-  import Feedback from '../lib/Dashboard/feedback/Feedback.svelte';
   import Accessoires from '../lib/Dashboard/accessories/Accessories.svelte';
+  import Feedback from '../lib/Dashboard/feedback/Feedback.svelte';
+  import Loco from '../lib/Dashboard/loco/Loco.svelte';
   import Toast from '../lib/Toast.svelte';
 
   import {
+    addToast,
     cvId,
     event,
-    locos,
-    indexOfSelectedLoco,
     hasDataToSave,
-    addToast,
+    indexOfSelectedLoco,
+    locos,
     selectedLoco,
   } from '../utils/store';
 
-  import { sortByKey } from '../utils/utils'
+  import { sortByKey } from '../utils/utils';
 
   const routes = {
     '/dashboard/locomotive': Loco,
@@ -61,7 +61,10 @@
       let value = parseInt(data.split(' ')[1].replace('>', ''));
 
       if (value === -1) {
-        addToast('error', 'Une erreur est survenue lors de la lecture de la valeur du CV');
+        addToast(
+          'error',
+          'Une erreur est survenue lors de la lecture de la valeur du CV',
+        );
         event.emit('cvError', cv);
         return;
       }
