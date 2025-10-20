@@ -83,39 +83,56 @@ const sortByKey = (array, key) =>
     return 0;
   });
 
-const getFuncBytes = (state, func) => {
-  let offset = 1;
+const getFuncBytes = (state, fn) => {
   let byte1 = 0;
   let byte2 = 0;
 
-  if (func <= 4) {
-    byte1 += 128;
-  } else if (func >= 5 && func <= 8) {
-    byte1 += 176;
-    offset = 5;
-  } else if (func >= 9 && func <= 12) {
-    byte1 += 160;
-    offset = 9;
-  } else if (func >= 13 && func <= 20) {
-    byte2 += 222;
-    offset = 13;
-  } else if (func >= 21 && func <= 28) {
-    byte2 += 223;
-    offset = 21;
-  }
-
-  if (func < 13) {
-    for (let i = offset; i <= offset + 4; i += 1) {
-      byte1 += state[i] ? 2 ** (i - offset) : 0;
-    }
-
-    byte1 += func === 0 ? 16 : 0; // Special case for function 0
-  }
-
-  if (func > 12) {
-    for (let j = offset; j <= offset + 8; j += 1) {
-      byte2 += state[j] ? 2 ** (j - offset) : 0;
-    }
+  if (fn >= 0 && fn <= 4) {
+    // F0-F4
+    // BYTE1 = 128 + F1*1 + F2*2 + F3*4 + F4*8 + F0*16
+    byte1 =
+      128 +
+      state[1] * 1 +
+      state[2] * 2 +
+      state[3] * 4 +
+      state[4] * 8 +
+      state[0] * 16;
+  } else if (fn >= 5 && fn <= 8) {
+    // F5-F8
+    // BYTE1 = 176 + F5*1 + F6*2 + F7*4 + F8*8
+    byte1 = 176 + state[5] * 1 + state[6] * 2 + state[7] * 4 + state[8] * 8;
+  } else if (fn >= 9 && fn <= 12) {
+    // F9-F12
+    // BYTE1 = 160 + F9*1 + F10*2 + F11*4 + F12*8
+    byte1 = 160 + state[9] * 1 + state[10] * 2 + state[11] * 4 + state[12] * 8;
+  } else if (fn >= 13 && fn <= 20) {
+    // F13-F20
+    // BYTE1 = 222
+    // BYTE2 = F13*1 + F14*2 + F15*4 + F16*8 + F17*16 + F18*32 + F19*64 + F20*128
+    byte1 = 222;
+    byte2 =
+      state[13] * 1 +
+      state[14] * 2 +
+      state[15] * 4 +
+      state[16] * 8 +
+      state[17] * 16 +
+      state[18] * 32 +
+      state[19] * 64 +
+      state[20] * 128;
+  } else if (fn >= 21 && fn <= 28) {
+    // F21-F28
+    // BYTE1 = 223
+    // BYTE2 = F21*1 + F22*2 + F23*4 + F24*8 + F25*16 + F26*32 + F27*64 + F28*128
+    byte1 = 223;
+    byte2 =
+      state[21] * 1 +
+      state[22] * 2 +
+      state[23] * 4 +
+      state[24] * 8 +
+      state[25] * 16 +
+      state[26] * 32 +
+      state[27] * 64 +
+      state[28] * 128;
   }
 
   return { byte1, byte2 };
