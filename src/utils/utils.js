@@ -173,6 +173,65 @@ const download = (name, data) => {
   }
 };
 
+const getCurrentDate = () => {
+  const d = new Date();
+  const yy = d.getFullYear();
+  const mm = `00${d.getMonth() + 1}`.slice(-2);
+  const dd = `00${d.getDate()}`.slice(-2);
+
+  return `${dd}-${mm}-${yy}`;
+};
+
+/**
+ * Zip Name: Locos
+ * Zip Architecture
+ * root /
+ * - synthèse_des_locos /
+ * -- locosData.json
+ * - {locoName}.img (png, jpg, jpeg, gif)
+ * - {locoName}.csv
+ */
+const downloadOneLocoInfoFile = (locosData, selectedLoco) => {
+  if (locosData.length > 0) {
+    const zip = new JSZip();
+
+    // Add locosData to zip
+    const globalDataFolder = zip.folder('synthèse_des_locos');
+    globalDataFolder.file('locosData.json', JSON.stringify(locosData));
+    // const imagesFolder = globalDataFolder.folder('images');
+
+    const locoDataWithoutCvs = { ...selectedLoco };
+    delete locoDataWithoutCvs.cvs;
+
+    zip.file(
+      `${selectedLoco.shortName}.csv`,
+      json2csv(locoDataWithoutCvs, { emptyFields: true }),
+    );
+
+    zip.file(
+      `${selectedLoco.shortName}_cvs.csv`,
+      json2csv(selectedLoco.cvs, { emptyFields: true }),
+    );
+
+    const imgUrl = selectedLoco.imageUrl
+      ? selectedLoco.imageUrl
+      : '/images/train.png';
+
+    const imgData = localStorage.getItem(imgUrl);
+    const realImgName = imgUrl.split('/').pop();
+
+    const base64StringFromDataURL = imgData
+      .replace('data:', '')
+      .replace(/^.+,/, '');
+
+    zip.file(realImgName, base64StringFromDataURL, { base64: true });
+
+    zip.generateAsync({ type: 'blob' }).then((content) => {
+      saveAs(content, `${selectedLoco.shortName}_${getCurrentDate()}.zip`);
+    });
+  }
+};
+
 /**
  * Zip Name: Locos
  * Zip Architecture
@@ -248,6 +307,7 @@ export {
   calculateSize,
   download,
   downloadLocoInfosFiles,
+  downloadOneLocoInfoFile,
   findCvValue,
   getDataUrl,
   getFuncBytes,
@@ -260,3 +320,4 @@ export {
   toBin,
   toHex
 };
+

@@ -8,19 +8,19 @@
     locos,
     modalToOpen,
     powerState,
+    selectedLoco,
     url,
     ws,
   } from '../../utils/store';
 
-  import { uploadFile } from '../../utils/api';
+  import { getLocos, uploadFile } from '../../utils/api';
   import logger from '../../utils/log';
-  import { downloadLocoInfosFiles, listOfLocoKeys } from '../../utils/utils';
+  import { downloadOneLocoInfoFile, listOfLocoKeys } from '../../utils/utils';
 
   import _ from '../../utils/i18n';
   import messages from '../../utils/messages';
 
   locale.subscribe((value) => {
-    console.log('locale changed to', value);
     localStorage.setItem('locale', value);
   });
 
@@ -60,6 +60,18 @@
       logger.error(error);
     }
   };
+
+  const onReloadLocosInfos = async () => {
+    try {
+      const data = await getLocos($url);
+      locos.set(data);
+
+      localStorage.setItem('locos', JSON.stringify($locos));
+    } catch (error) {
+      logger.error(error);
+    }
+  };
+
 </script>
 
 <div
@@ -172,8 +184,18 @@
         <button
           tabindex="0"
           class="btn btn-ghost gap-1 normal-case"
-          on:click|preventDefault="{() => downloadLocoInfosFiles($locos)}">
+          on:click|preventDefault="{() =>
+            downloadOneLocoInfoFile($locos, $selectedLoco)}">
           <Icon icon="ic:round-download" class="w-6 h-6" />
+        </button>
+      </div>
+
+      <div class="tooltip tooltip-bottom" data-tip="{$_('downloadConfig')}">
+        <button
+          tabindex="0"
+          class="btn btn-ghost gap-1 normal-case"
+          on:click|preventDefault="{() => onReloadLocosInfos()}">
+          <Icon icon="subway:cloud-reload" class="w-6 h-6" />
         </button>
       </div>
 
