@@ -1,16 +1,16 @@
 <script lang="js">
   import {
-    url,
-    locos,
-    selectedLoco,
     indexOfSelectedLoco,
+    locos,
     modalToOpen,
+    selectedLoco,
+    url,
   } from '../../utils/store';
 
-  import _ from '../../utils/i18n';
-  import { listOfLocoKeys } from '../../utils/utils';
   import { uploadFile } from '../../utils/api';
+  import _ from '../../utils/i18n';
   import log from '../../utils/log';
+  import { listOfLocoKeys } from '../../utils/utils';
 
   import Upload from '../Upload.svelte';
 
@@ -102,8 +102,7 @@
             autocomplete="off"
             class="input input-bordered input-sm max-w-xs
           {addrEmpty && 'input-error'}"
-            bind:value="{newLoco.address}"
-          />
+            bind:value="{newLoco.address}" />
           {#if addrEmpty}
             <label for="address" class="label">
               <span class="label-text-alt">
@@ -124,8 +123,7 @@
             placeholder=""
             class="input input-bordered input-sm max-w-xs
           {fieldsEmpty && 'input-error'}"
-            bind:value="{newLoco.shortName}"
-          />
+            bind:value="{newLoco.shortName}" />
           {#if fieldsEmpty}
             <label for="address" class="label">
               <span class="label-text-alt">
@@ -146,8 +144,7 @@
             placeholder=""
             class="input input-bordered input-sm max-w-xs
           {fieldsEmpty && 'input-error'}"
-            bind:value="{newLoco.longName}"
-          />
+            bind:value="{newLoco.longName}" />
           {#if fieldsEmpty}
             <label for="address" class="label">
               <span class="label-text-alt">
@@ -159,21 +156,19 @@
 
         <div class="form-control w-2/3">
           <span class="label label-text">{$_('image')}:</span>
-          <Upload bind:this="{child}" bind:imgUrl />
+          <Upload bind:this="{child}" bind:imgUrl="{imgUrl}" />
         </div>
       </div>
       <div class="modal-action">
         <button
           class="btn btn-accent btn-sm"
           type="reset"
-          on:click|preventDefault="{onCreate}">{$_('ended')}</button
-        >
+          on:click|preventDefault="{onCreate}">{$_('ended')}</button>
         <button
           class="btn btn-sm"
           type="reset"
-          on:click|preventDefault="{onCancel}"
-        >
-        {$_('cancel')}
+          on:click|preventDefault="{onCancel}">
+          {$_('cancel')}
         </button>
       </div>
     </form>

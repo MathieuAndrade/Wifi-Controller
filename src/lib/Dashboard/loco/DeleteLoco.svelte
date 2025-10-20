@@ -1,14 +1,14 @@
 <script lang="js">
   import {
-    url,
+    indexOfLocoToDelete,
+    indexOfSelectedLoco,
     locos,
     selectedLoco,
-    indexOfSelectedLoco,
-    indexOfLocoToDelete,
+    url,
   } from '../../../utils/store';
 
+  import { deleteFile, uploadFile } from '../../../utils/api';
   import { listOfLocoKeys } from '../../../utils/utils';
-  import { uploadFile, deleteFile } from '../../../utils/api';
 
   indexOfLocoToDelete.subscribe((value) => {
     if (value !== -1) {
@@ -39,6 +39,7 @@
       { type: 'application/json' },
     );
     await uploadFile($url, data, 'locos.json');
+    await uploadFile(null, data, 'locos.json');
 
     // Check if deleted loco is selected loco or if all locos are deleted
     if ($indexOfLocoToDelete === $indexOfSelectedLoco || $locos.length === 0) {
@@ -74,15 +75,13 @@
       <button
         class="btn btn-accent btn-sm"
         type="reset"
-        on:click|preventDefault="{onDelete}"
-      >
+        on:click|preventDefault="{onDelete}">
         Confirmer
       </button>
       <button
         class="btn btn-sm"
         type="reset"
-        on:click|preventDefault="{onCancel}"
-      >
+        on:click|preventDefault="{onCancel}">
         Annuler
       </button>
     </div>

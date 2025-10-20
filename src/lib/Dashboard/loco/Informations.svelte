@@ -1,15 +1,14 @@
 <script lang="js">
   import {
-    url,
+    hasDataToSave,
+    indexOfSelectedLoco,
     locos,
     selectedLoco,
-    indexOfSelectedLoco,
-    hasDataToSave,
   } from '../../../utils/store';
 
+  import { deleteFile } from '../../../utils/api';
   import _ from '../../../utils/i18n';
   import { listOfLocoFunctions } from '../../../utils/utils';
-  import { deleteFile } from '../../../utils/api';
 
   import Upload from '../../../lib/Upload.svelte';
 
@@ -34,18 +33,18 @@
   };
 
   const onDeleteImg = async () => {
-    if ($selectedLoco.imageUrl && $selectedLoco.imageUrl.startsWith('/images')) {
-      await deleteFile(
-        $url,
-        $selectedLoco.imageUrl.substring(1),
-      );
+    if (
+      $selectedLoco.imageUrl &&
+      $selectedLoco.imageUrl.startsWith('/images')
+    ) {
+      await deleteFile(null, $selectedLoco.imageUrl.substring(1));
       localStorage.removeItem($selectedLoco.imageUrl);
     }
 
     imgUrl = null;
     $selectedLoco.imageUrl = null;
     onSave();
-  }
+  };
 </script>
 
 <div class="flex flex-col space-y-5">
@@ -151,7 +150,7 @@
         <textarea
           class="textarea textarea-bordered"
           bind:value="{$selectedLoco.description}"
-          on:input="{onSave}"/>
+          on:input="{onSave}"></textarea>
       </div>
     </div>
 
@@ -159,7 +158,11 @@
       <span class="text-lg underline underline-offset-4 mb-3">
         {$_('image')}
       </span>
-      <Upload bind:this="{child}" bind:imgUrl hasSaveBtn="{true}" onDeleteCb={onDeleteImg} />
+      <Upload
+        bind:this="{child}"
+        bind:imgUrl="{imgUrl}"
+        hasSaveBtn="{true}"
+        onDeleteCb="{onDeleteImg}" />
     </div>
   </div>
 

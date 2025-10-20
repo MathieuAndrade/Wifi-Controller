@@ -2,17 +2,16 @@
   import Icon from '@iconify/svelte';
   import {
     url,
-    locos,
-    indexOfSelectedLoco,
-    selectedLoco,
     hasDataToSave,
+    indexOfSelectedLoco,
+    locos,
+    selectedLoco
   } from '../utils/store';
 
-
+  import { getImageFromUrl, uploadFile } from '../utils/api';
   import _ from '../utils/i18n';
-  import { getDataUrl, listOfLocoKeys } from '../utils/utils';
-  import { getImageFromUrl, uploadFile, deleteFile } from '../utils/api';
   import log from '../utils/log';
+  import { getDataUrl, listOfLocoKeys } from '../utils/utils';
 
   export let imgUrl = null;
   export let hasSaveBtn = false;
@@ -121,13 +120,11 @@
       <img
         class="place-self-center"
         src="{imgUrl && imgUrl.startsWith('/images') ? imgData : imgUrl}"
-        alt=""
-      />
+        alt="" />
       <button
         class="place-self-center absolute h-full w-full bg-base-100 opacity-0 hover:opacity-70"
-        on:click|preventDefault="{onDelete}"
-      >
-        <Icon icon="mdi:trash-outline" class="inline-block w-7 h-7"/>
+        on:click|preventDefault="{onDelete}">
+        <Icon icon="mdi:trash-outline" class="inline-block w-7 h-7" />
       </button>
     </div>
     {#if imgName}
@@ -142,8 +139,7 @@
           placeholder=""
           class="input input-bordered input-sm max-w-xs"
           bind:value="{imgName}"
-          on:change="{() => (imgUrl = `/images/${imgName}${imgExtension}`)}"
-        />
+          on:change="{() => (imgUrl = `/images/${imgName}${imgExtension}`)}" />
       </div>
     {/if}
 
@@ -151,24 +147,21 @@
       <button
         class="btn btn-outline btn-sm mt-4"
         disabled="{$selectedLoco.imageUrl === imgUrl}"
-        on:click|preventDefault="{onSave}"
-      >
-        <Icon icon="ic:round-save-as" class="w-5 h-5 mr-2"/>
+        on:click|preventDefault="{onSave}">
+        <Icon icon="ic:round-save-as" class="w-5 h-5 mr-2" />
         {$_('saveImage')}
       </button>
     {/if}
   {:else}
     <div
-      class="flex relative h-12 border border-dashed border-gray-500/80 hover:border-accent rounded items-center justify-center"
-    >
+      class="flex relative h-12 border border-dashed border-gray-500/80 hover:border-accent rounded items-center justify-center">
       <span class="cursor-pointer">{$_('choseFile')}</span>
       <input
         class="absolute h-full w-full opacity-0 cursor-pointer"
         type="file"
         name="files"
         accept=".png, .jpg, .jpeg, .svg, .gif"
-        on:change="{onUpload}"
-      />
+        on:change="{onUpload}" />
     </div>
     <span class="text-xs">
       {$_('imageNote')}
@@ -184,9 +177,8 @@
         <span class="label-text"> {$_('url')}: </span>
         <span
           class="label-text-alt tooltip"
-          data-tip={$_('urlNoteDescription')}
-        >
-        {$_('urlNoteTitle')}
+          data-tip="{$_('urlNoteDescription')}">
+          {$_('urlNoteTitle')}
         </span>
       </label>
       <input
@@ -195,8 +187,7 @@
         type="url"
         placeholder="http://..."
         class="input input-bordered input-sm max-w-xs"
-        bind:value="{imgUrl}"
-      />
+        bind:value="{imgUrl}" />
     </div>
   {/if}
 </div>

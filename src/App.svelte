@@ -1,14 +1,14 @@
 <script lang="js">
-  import Router from 'svelte-spa-router';
   import { isLoading } from 'svelte-i18n';
+  import Router from 'svelte-spa-router';
 
-  import Home from './views/Home.svelte';
   import Dashboard from './views/Dashboard.svelte';
-  import Mobile from './views/Mobile.svelte';
+  import Home from './views/Home.svelte';
   import Logs from './views/Logs.svelte';
+  import Mobile from './views/Mobile.svelte';
 
-  import { hasDataToSave, addToast } from './utils/store';
   import _ from './utils/i18n';
+  import { addToast, hasDataToSave } from './utils/store';
 
   const target = import.meta.env.VITE_TARGET;
   const isDev = import.meta.env.DEV;
@@ -16,7 +16,6 @@
   if (!isDev) {
     // Prompt to save data before closing
     window.onbeforeunload = () => {
-      console.log(target);
       if ($hasDataToSave) {
         addToast('warning', $_('dataWaitingToBeSaved'));
         return target === 'soft' ? undefined : 'Do you really want to close?';
@@ -32,7 +31,6 @@
     '/dashboard': Dashboard,
     '/dashboard/*': Dashboard,
   };
-
 </script>
 
 {#if !$isLoading}

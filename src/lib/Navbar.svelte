@@ -1,9 +1,9 @@
 <script lang="js">
   import Icon from '@iconify/svelte';
-  import { ws, event, hasDataToSave, powerState, log } from '../utils/store';
+  import { event, hasDataToSave, log, powerState, ws } from '../utils/store';
 
-  import messages from '../utils/messages';
   import _ from '../utils/i18n';
+  import messages from '../utils/messages';
 
   export let mode = 'dashboard';
 

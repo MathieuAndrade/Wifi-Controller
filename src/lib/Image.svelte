@@ -15,7 +15,7 @@
     if (imgUrl && imgUrl.startsWith('/images')) {
       let store = localStorage.getItem(imgUrl);
 
-      if(!isValidImage(store)) store = undefined;
+      if (!isValidImage(store)) store = undefined;
 
       if (store) {
         img = store;
@@ -28,9 +28,4 @@
   });
 </script>
 
-<img
-  alt="{alt}"
-  src="{img}"
-  class="{cssClass}"
-  width="{width}"
-/>
+<img alt="{alt}" src="{img}" class="{cssClass}" width="{width}" />
