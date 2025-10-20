@@ -1,5 +1,4 @@
 <script lang="js">
-  import { url } from '../utils/store';
   import { afterUpdate } from 'svelte';
   import { getImageFromUrl } from '../utils/api';
   import { getDataUrl, isValidImage } from '../utils/utils';
@@ -20,7 +19,7 @@
       if (store) {
         img = store;
       } else {
-        const data = await getImageFromUrl($url, imgUrl);
+        const data = await getImageFromUrl(null, imgUrl);
         img = await getDataUrl(data);
         localStorage.setItem(imgUrl, img);
       }

@@ -13,7 +13,7 @@
     ws,
   } from '../../utils/store';
 
-  import { getLocos, uploadFile } from '../../utils/api';
+  import { getLocos, openUserFolder, uploadFile } from '../../utils/api';
   import logger from '../../utils/log';
   import { downloadOneLocoInfoFile, listOfLocoKeys } from '../../utils/utils';
 
@@ -55,6 +55,7 @@
         { type: 'application/json' },
       );
       await uploadFile($url, data, 'locos.json');
+      await uploadFile(null, data, 'locos.json');
       hasDataToSave.set(false);
     } catch (error) {
       logger.error(error);
@@ -72,6 +73,31 @@
     }
   };
 
+  const onMigrate = async () => {
+    // Send locos data to save in client
+    const data = new File(
+      [JSON.stringify($locos, listOfLocoKeys)],
+      'locos.json',
+      { type: 'application/json' },
+    );
+    await uploadFile(null, data, 'locos.json');
+
+    // Now send all images to server
+    const images = $locos
+      .map((loco) => loco.imageUrl)
+      .filter((url) => url && url.startsWith('/images'));
+
+    for (const imgUrl of images) {
+      const data = localStorage.getItem(imgUrl);
+      if (data) {
+        const blob = await (await fetch(data)).blob();
+        const file = new File([blob], imgUrl, {
+          type: blob.type,
+        });
+        await uploadFile(null, file, imgUrl);
+      }
+    }
+  };
 </script>
 
 <div
@@ -157,6 +183,26 @@
           class="btn btn-ghost gap-1 normal-case"
           on:click="{openLogsView}">
           <Icon icon="icon-park-outline:align-text-left-one" class="w-6 h-6" />
+        </button>
+      </div>
+
+      <div class="tooltip tooltip-bottom" data-tip="Effectuer une migration">
+        <button
+          tabindex="0"
+          class="btn btn-ghost gap-1 normal-case"
+          on:click|preventDefault="{() => onMigrate()}">
+          <Icon icon="eos-icons:database-migration" class="w-6 h-6" />
+        </button>
+      </div>
+
+      <div
+        class="tooltip tooltip-bottom"
+        data-tip="Ouvrir le dossier de sauvegarde">
+        <button
+          tabindex="0"
+          class="btn btn-ghost gap-1 normal-case"
+          on:click|preventDefault="{() => openUserFolder()}">
+          <Icon icon="material-symbols:folder-open-outline" class="w-6 h-6" />
         </button>
       </div>
 

@@ -1,7 +1,6 @@
 <script lang="js">
   import Icon from '@iconify/svelte';
   import {
-    url,
     hasDataToSave,
     indexOfSelectedLoco,
     locos,
@@ -26,7 +25,7 @@
   export async function upload() {
     try {
       if (imgUrl.startsWith('/images')) {
-        await uploadFile($url, img, imgUrl);
+        await uploadFile(null, img, imgUrl);
         localStorage.setItem(imgUrl, imgData);
       }
 
@@ -51,7 +50,7 @@
       if (store) {
         imgData = store;
       } else {
-        const img = await getImageFromUrl($url, imgUrl);
+        const img = await getImageFromUrl(null, imgUrl);
         imgData = await getDataUrl(img);
         localStorage.setItem(imgUrl, imgData);
       }
@@ -71,7 +70,7 @@
   const onSave = async () => {
     try {
       if (imgUrl !== null && imgUrl.startsWith('/images')) {
-        await uploadFile($url, img, imgUrl);
+        await uploadFile(null, img, imgUrl);
         localStorage.setItem(imgUrl, imgData);
       }
 
@@ -88,7 +87,7 @@
         'locos.json',
         { type: 'application/json' },
       );
-      await uploadFile($url, data, 'locos.json');
+      await uploadFile(null, data, 'locos.json');
       hasDataToSave.set(false);
     } catch (error) {
       log.error(error);
@@ -99,7 +98,7 @@
     let file = event.target.files[0];
     imgToLarge = false;
 
-    if (file.size < 100000) {
+    if (file.size < 10000000) {
       img = file;
       imgData = await getDataUrl(file);
       imgName = file.name;

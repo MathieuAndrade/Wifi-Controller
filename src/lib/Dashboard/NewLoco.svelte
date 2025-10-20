@@ -56,6 +56,7 @@
         { type: 'application/json' },
       );
       await uploadFile($url, data, 'locos.json');
+      await uploadFile(null, data, 'locos.json');
 
       // Reset all states
       addrEmpty = false;
