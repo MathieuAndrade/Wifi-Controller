@@ -1,7 +1,4 @@
 <script lang="js">
-  import Icon from '@iconify/svelte';
-  import { link } from 'svelte-spa-router';
-
   import { modalToOpen, url, ws } from '../../utils/store';
 
   import _ from '../../utils/i18n';
@@ -50,7 +47,7 @@
         </div>
       </div>
 
-      <ul class="menu flex flex-col p-0 px-4">
+      <!-- <ul class="menu flex flex-col p-0 px-4">
         <li></li>
         <li>
           <a use:link href="/dashboard/locomotive" class="flex gap-4">
@@ -60,7 +57,6 @@
             <span class="flex-1">{$_('locomotive')}</span>
           </a>
         </li>
-        <!--
         <li>
           <a
             use:link
@@ -83,8 +79,7 @@
             <span class="flex-1">{$_('accessories')}</span>
           </a>
         </li>
-        -->
-      </ul>
+      </ul> -->
 
       <LocoList />
     </aside>
