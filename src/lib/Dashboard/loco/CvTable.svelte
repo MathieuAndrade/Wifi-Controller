@@ -79,7 +79,7 @@
   const onSave = () => {
     locos.update((value) => {
       const list = value;
-      list[indexOfSelectedLoco] = loco;
+      list[$indexOfSelectedLoco] = loco;
       return list;
     });
 

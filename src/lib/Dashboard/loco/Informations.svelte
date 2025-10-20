@@ -27,7 +27,7 @@
   const onSave = () => {
     locos.update((value) => {
       const list = value;
-      list[indexOfSelectedLoco] = selectedLoco;
+      list[$indexOfSelectedLoco] = $selectedLoco;
       return list;
     });
     hasDataToSave.set(true);
