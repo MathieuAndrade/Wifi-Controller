@@ -5,7 +5,13 @@ class EventEmitter {
 
   on(event, cb) {
     if (!this.callbacks[event]) this.callbacks[event] = [];
-    this.callbacks[event].push(cb);
+
+    // Avoid adding duplicate callbacks
+    if (!this.callbacks[event].includes(cb)) {
+      this.callbacks[event].push(cb);
+    } else {
+      this.callbacks[event][this.callbacks[event].indexOf(cb)] = cb;
+    }
   }
 
   emit(event, data) {
