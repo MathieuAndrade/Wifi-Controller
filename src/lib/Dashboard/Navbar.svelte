@@ -56,6 +56,8 @@
       );
       await uploadFile($url, data, 'locos.json');
       await uploadFile(null, data, 'locos.json');
+      localStorage.setItem('locos', JSON.stringify($locos));
+      localStorage.setItem('selectedLoco', JSON.stringify($selectedLoco));
       hasDataToSave.set(false);
     } catch (error) {
       logger.error(error);
