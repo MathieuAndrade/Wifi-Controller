@@ -2,8 +2,6 @@
 import log from './log';
 import { event } from './store';
 
-const dccLogs = [];
-
 const websocket = (url) => {
   const socket = new WebSocket(`ws://${url}/ws`);
 
@@ -27,10 +25,6 @@ const websocket = (url) => {
       // so send it is a message from DCCpp
       if (e.data.startsWith('<') && e.data.endsWith('>')) {
         event.emit('dccMessage', e.data);
-
-        // Save dcc message to share it with logs window
-        dccLogs.push(`DCCpp : ${e.data.replace(/<|>/g, '')}`);
-        localStorage.setItem('dccLogs', JSON.stringify(dccLogs));
       }
     }
   };

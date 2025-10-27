@@ -40,7 +40,7 @@
   };
 
   const openLogsView = () => {
-    window.open('#/logs', 'DCC logs', 'width=700, height=515');
+    window.open('#/logs', 'DCC logs', 'width=1150, height=700').focus();
   };
 
   const openDMCView = () => {
