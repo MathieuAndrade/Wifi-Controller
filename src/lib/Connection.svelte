@@ -6,6 +6,7 @@
   import log from '../utils/log';
   import websocket from '../utils/websocket';
 
+  import { onMount } from 'svelte';
   import {
     event,
     indexOfSelectedLoco,
@@ -107,17 +108,34 @@
     loading = true;
   };
 
-  event.on(
-    'connected',
-    backgroundConnection ? onConnectedInBackground : onConnected,
-  );
-  event.on('error', onError);
-
-  event.on('close', () => {
+  const onClose = () => {
     loading = false;
     modalToOpen.set('connexionModal');
     ws.set(null);
     socket = null;
+  };
+
+  event.on(
+    'connected',
+    backgroundConnection ? onConnectedInBackground : onConnected,
+  );
+
+  onMount(() => {
+    event.on(
+      'connected',
+      backgroundConnection ? onConnectedInBackground : onConnected,
+    );
+    event.on('error', onError);
+    event.on('close', onClose);
+
+    return () => {
+      event.removeListener(
+        'connected',
+        backgroundConnection ? onConnectedInBackground : onConnected,
+      );
+      event.removeListener('error', onError);
+      event.removeListener('close', onClose);
+    };
   });
 </script>
 
